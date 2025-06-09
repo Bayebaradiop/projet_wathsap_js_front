@@ -48,7 +48,6 @@ btnTous.addEventListener('click', () => changerVue('listeToute'));
 
 
 
-// Fonction pour charger les données
 async function chargerDonnees() {
   try {
     const response = await fetch(urldiscussion);
@@ -80,7 +79,8 @@ async function chargerDonnees() {
   }
 }
 
-// Gestion de la connexion
+
+
 document.getElementById('btnLogin').addEventListener('click', () => {
   const tel = document.getElementById('loginTelephone').value.trim();
   const error = document.getElementById('loginError');

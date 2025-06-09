@@ -8,7 +8,7 @@ console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
-  await chargerDonnees(); // Charger les données avant de les utiliser
+  await chargerDonnees(); 
 
   const u = data.find(r => r.id === utilisateurSauvegarde);
   if (!u) {
