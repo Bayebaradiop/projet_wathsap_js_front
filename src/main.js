@@ -44,6 +44,10 @@ btnParametres.addEventListener('click', () => {
 });
 btnTous.addEventListener('click', () => changerVue('listeToute'));
 
+
+
+
+
 // Fonction pour charger les données
 async function chargerDonnees() {
   try {
@@ -113,7 +117,8 @@ btnLogout.addEventListener('click', () => {
   alert('Vous êtes déconnecté.');
 });
 
-// Charger les données au démarrage
+
+
 chargerDonnees();
 
 
