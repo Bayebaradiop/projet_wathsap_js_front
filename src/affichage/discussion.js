@@ -1,4 +1,4 @@
-import { data, datag, urldiscussion, urlgroupe, chargerDonnees } from "../url_api/environement.js";
+import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
 
 let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
@@ -8,7 +8,7 @@ console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
-  await chargerDonnees(); 
+  await chargerDonnees(); // Charger les données avant de les utiliser
 
   const u = data.find(r => r.id === utilisateurSauvegarde);
   if (!u) {
@@ -17,12 +17,13 @@ export async function affiche1() {
   }
 
   const visible = data.filter(r => u.contact.includes(r.id));
-  let html = '';
 
+  listeToute.innerHTML = '';
   visible.forEach((d) => {
-    html += `
+    listeToute.innerHTML += `
       <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="afficheMessages('${d.id}')">
-        <div class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
+        <div
+          class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
           BB
           <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-wa-sidebar"></div>
         </div>
@@ -33,14 +34,12 @@ export async function affiche1() {
           </div>
           <div class="flex justify-between items-center">
             <p class="text-wa-text-secondary text-sm truncate">${d.dernierMessage}</p>
-            ${d.nonLus > 0 ? `<span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">${d.nonLus}</span>` : ''}
+            <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">2</span>
           </div>
         </div>
       </div>
     `;
   });
-
-  listeToute.innerHTML = html;
 }
 
 async function afficheMessages(identifiant) {
@@ -49,7 +48,7 @@ async function afficheMessages(identifiant) {
 
     const contact = data.find(c => c.id === identifiant);
     if (!contact) {
-      console.error("Contact introuvable pour l'ID :", identifiant);
+      console.error("Contact introuvable.");
       return;
     }
 
@@ -61,7 +60,6 @@ async function afficheMessages(identifiant) {
       (msg.auteur === contact.id && msg.destinataire === utilisateurSauvegarde)
     );
 
-    let messagesHTML = "";
     messages.forEach(msg => {
       const align = msg.auteur === utilisateurSauvegarde ? "justify-end" : "justify-start";
       const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-color-blanc text-color-text";
@@ -74,7 +72,7 @@ async function afficheMessages(identifiant) {
           : `<span class="text-color-noir ml-2">&#10003;</span>`;
       }
 
-      messagesHTML += `
+      messagesContainer.innerHTML += `
         <div class="flex ${align} mb-2">
           <div class="${bgColor} max-w-xs px-3 py-2 ${radius}">
             <div class="text-sm">${msg.texte}</div>
@@ -86,21 +84,18 @@ async function afficheMessages(identifiant) {
       `;
     });
 
-    messagesContainer.innerHTML = messagesHTML;
-
     const input = document.getElementById('messageInput');
     input.value = contact.brouillon || "";
 
     idDiscussionActive = identifiant;
 
   } catch (error) {
-    console.error("Erreur lors du chargement des messages :", error);
+    console.error("Erreur lors du chargement des discussions :", error);
   }
 }
 
 window.afficheMessages = afficheMessages;
 
-const sendButton = document.getElementById('sendButton');
 sendButton.addEventListener('click', envoyerMessage);
 
 async function envoyerMessage() {
@@ -166,11 +161,35 @@ async function envoyerMessage() {
           body: JSON.stringify(contact)
         });
 
+        const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
+        if (utilisateurConnecteObj) {
+          const messageUtilisateur = {
+            texte,
+            heure,
+            envoye: true,
+            lu: true,
+            auteur: utilisateurSauvegarde,
+            destinataire: contact.id
+          };
+
+          utilisateurConnecteObj.messages.push(messageUtilisateur);
+          utilisateurConnecteObj.dernierMessage = texte;
+          utilisateurConnecteObj.heure = heure;
+          await fetch(`${urldiscussion}/${utilisateurConnecteObj.id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(utilisateurConnecteObj)
+          });
+        }
+
         afficheMessages(contact.id);
       }
     }
 
     input.value = '';
+
     affiche1();
 
   } catch (error) {

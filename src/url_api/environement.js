@@ -1,24 +1,37 @@
-export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
-export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
+// export const urldiscussion='https://projet-wathsap-js-backend-1.onrender.com/discussions';
 
-let data = [];
-let datag = [];
+// export const urlgroupe='https://projet-wathsap-js-backend-1.onrender.com/groupes';
 
-// Fonction pour charger les données
-export async function chargerDonnees() {
-  try {
-    const discussionsResponse = await fetch(urldiscussion);
-    data = await discussionsResponse.json();
 
-    const groupesResponse = await fetch(urlgroupe);
-    datag = await groupesResponse.json();
+//  const a= await fetch(urldiscussion)
 
-    console.log("Données des discussions chargées :", data);
-    console.log("Données des groupes chargées :", datag);
-  } catch (error) {
-    console.error("Erreur lors du chargement des données :", error);
-  }
-}
+// export const data=await a.json();
+//  const g=await fetch(urlgroupe)
+// export const datag=await g.json();
 
-// Exporter les données pour les utiliser dans d'autres fichiers
-export { data, datag };
+
+
+    export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
+    export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
+
+    let data = [];
+    let datag = [];
+
+    // Fonction pour charger les données
+    export async function chargerDonnees() {
+      try {
+        const discussionsResponse = await fetch(urldiscussion);
+        data = await discussionsResponse.json();
+
+        const groupesResponse = await fetch(urlgroupe);
+        datag = await groupesResponse.json();
+
+        console.log("Données des discussions chargées :", data);
+        console.log("Données des groupes chargées :", datag);
+      } catch (error) {
+        console.error("Erreur lors du chargement des données :", error);
+      }
+    }
+
+    // Exporter les données pour les utiliser dans d'autres fichiers
+    export { data, datag };
