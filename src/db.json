@@ -1,0 +1,314 @@
+{
+  "discussions": [
+    {
+      "id": "06a2",
+      "nom": "Ma Mère Ma Vie❤️",
+      "avatar": "M",
+      "dernierMessage": "waw wawwww",
+      "heure": "12:57",
+      "nonLus": 0,
+      "etat": true,
+      "actus": "Mawahibou Nafih",
+      "telephone": "77777777",
+      "brouillon": "",
+      "contact": [
+        "28e2",
+        "a195"
+      ],
+      "noteVocale": true,
+      "messages": [
+        {
+          "texte": "Salut mon chéri, comment ça va ?",
+          "auteur": "06a2",
+          "destinataire": "28e2",
+          "heure": "14:25",
+          "envoye": true,
+          "lu": true
+        },
+        {
+          "texte": "Ça va bien maman, et toi ?",
+          "auteur": "28e2",
+          "destinataire": "06a2",
+          "heure": "14:26",
+          "envoye": true,
+          "lu": true
+        },
+        {
+          "texte": "Tu m’achètes quoi ce soir ?",
+          "auteur": "06a2",
+          "destinataire": "28e2",
+          "heure": "14:27",
+          "envoye": true,
+          "lu": false
+        },
+        {
+          "texte": "cv",
+          "heure": "12:24",
+          "envoye": true,
+          "lu": false,
+          "auteur": 2800,
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "wauyyyyyyyyyyyyyyyyyyyyyyyyy",
+          "heure": "12:27",
+          "envoye": true,
+          "lu": false,
+          "auteur": 2800,
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:55",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "mannnn laaaa",
+          "heure": "12:55",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "haaaaaaaaaaaaaa",
+          "heure": "12:56",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "a195"
+        },
+        {
+          "texte": "waw wawwww",
+          "heure": "12:57",
+          "envoye": true,
+          "lu": false,
+          "auteur": "a195",
+          "destinataire": "06a2"
+        }
+      ]
+    },
+    {
+      "id": "28e2",
+      "nom": "Ahmed ka",
+      "avatar": "AE",
+      "dernierMessage": "mannnn laaaa",
+      "heure": "12:55",
+      "nonLus": 3,
+      "etat": true,
+      "brouillon": "",
+      "contact": [
+        "06a2"
+      ],
+      "actus": "Je suis en salle de sport",
+      "telephone": "777777776",
+      "messages": [
+        {
+          "texte": "Salut mon chéri, comment ça va ?",
+          "auteur": "06a2",
+          "destinataire": "28e2",
+          "envoye": false,
+          "heure": "14:25"
+        },
+        {
+          "texte": "Ça va bien maman, et toi ?",
+          "auteur": "28e2",
+          "destinataire": "06a2",
+          "envoye": true,
+          "heure": "14:26"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:16",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "bayyyy",
+          "heure": "12:18",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:24",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:55",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "mannnn laaaa",
+          "heure": "12:55",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        }
+      ]
+    },
+    {
+      "id": "a195",
+      "nom": "Test T",
+      "avatar": "T",
+      "dernierMessage": "waw wawwww",
+      "heure": "12:57",
+      "nonLus": 3,
+      "etat": true,
+      "actus": "Occuper",
+      "telephone": "757777777",
+      "contact": [
+        "06a2",
+        "28e2"
+      ],
+      "brouillon": "",
+      "messages": [
+        {
+          "texte": "cvbbbbbb",
+          "heure": "12:16",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "a195"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:17",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "a195"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:25",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "a195"
+        },
+        {
+          "texte": "fffffffffff",
+          "heure": "12:25",
+          "envoye": true,
+          "lu": false,
+          "auteur": null,
+          "destinataire": "a195"
+        },
+        {
+          "texte": "haaaaaaaaaaaaaa",
+          "heure": "12:56",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "a195"
+        },
+        {
+          "texte": "waw wawwww",
+          "heure": "12:57",
+          "envoye": true,
+          "lu": true,
+          "auteur": "a195",
+          "destinataire": "06a2"
+        }
+      ]
+    }
+  ],
+  "groupes": [
+    {
+      "id": "5",
+      "nom": "Amis 🎉",
+      "description": "Groupe pour organiser nos sorties",
+      "etat": true,
+      "admin": [
+        "06a2"
+      ],
+      "dernierMessage": "On se voit demain ?",
+      "contact": [],
+      "membres": [
+        {
+          "id": "28e2",
+          "nom": "Ahmed ka"
+        },
+        {
+          "id": 3,
+          "nom": "Test T"
+        }
+      ],
+      "message": [
+        {
+          "texte": "Salut tout le monde !",
+          "auteur": 2,
+          "heure": "15:00",
+          "envoye": true,
+          "lu": true
+        },
+        {
+          "texte": "On sort ce week-end ?",
+          "auteur": 3,
+          "heure": "15:10",
+          "envoye": true,
+          "lu": false
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "nom": "Travail 💼",
+      "description": "Groupe pour les discussions professionnelles",
+      "etat": true,
+      "admin": [
+      
+      ],
+      "dernierMessage": "On se voit demain ?",
+      "contact": [
+        1
+      ],
+      "membres": [
+        {
+          "id": "06a2",
+          "nom": "Ma Mère Ma Vie❤️"
+        },
+        {
+          "id": "a195",
+          "nom": "Test T"
+        },
+        {
+          "id": "28e2",
+          "nom": "Ahmed ka"
+        }
+      ],
+      "message": [
+        {
+          "texte": "N'oubliez pas la réunion demain.",
+          "auteur": 3,
+          "heure": "18:00",
+          "envoye": true,
+          "lu": false
+        },
+        {
+          "texte": "Merci pour le rappel.",
+          "auteur": 1,
+          "heure": "18:05",
+          "envoye": true,
+          "lu": true
+        }
+      ]
+    }
+  ]
+}
