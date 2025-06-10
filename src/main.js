@@ -1,8 +1,8 @@
 import { changerVue } from "./changementVue/changementVue.js";
-import { affiche1 } from "./affichage/discussion.js";
+import { affiche1, utilisateurSauvegarde } from "./affichage/discussion.js";
 import { afficheGroupe } from "./affichage/afficheGroupe.js";
 import './style.css';
-import { urldiscussion, urlgroupe } from "./url_api/environement.js";
+import { urldiscussion, urlgroupe} from "./url_api/environement.js";
 let utilisateurConnecte = null;
 let data = [];
 // Sélection des éléments DOM
@@ -25,8 +25,17 @@ const login = document.querySelector('.login');
 const messagesContainer = document.getElementById('messagesContainer');
 const sendButton = document.getElementById('sendButton');
 const btnLogout = document.getElementById('btnLogout');
+const form= document.getElementById('loginForm');
+const btnAjouterContact = document.getElementById('btnAjouterContact');
+
+
 // Gestion des vues
+
+
+btnAjouterContact.addEventListener('click',()=>changerVue('form')); 
+
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
+
 btnmessage.addEventListener('click', () => {
   changerVue('listeNonLues');
   recherche.classList.remove('hidden');
@@ -68,6 +77,7 @@ async function chargerDonnees() {
     alert("Impossible de charger les données. Veuillez réessayer plus tard.");
   }
 }
+
 document.getElementById('btnLogin').addEventListener('click', () => {
   const tel = document.getElementById('loginTelephone').value.trim();
   const error = document.getElementById('loginError');

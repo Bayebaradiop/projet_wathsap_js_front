@@ -12,6 +12,7 @@ export function changerVue(vue) {
     listeFavoris: listeFavoris,
     pageParametres: pageParametres,
     listeToute,
+    form: form,
   };
 
   Object.values(sections).forEach(section => section.classList.add('hidden'));

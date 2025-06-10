@@ -74,7 +74,7 @@
       <!-- Header -->
       <div class="bg-wa-panel p-4 flex justify-between items-center">
         <h2 class="text-wa-text-primary text-xl font-medium">Discussions</h2>
-        <div class="flex gap-4">
+        <div class="flex gap-4" id="btnAjouterContact">
           <i
             class="fas fa-square-plus text-wa-color-icones hover:text-wa-text-primary cursor-pointer text-xl transition-colors"></i>
           <i
@@ -173,6 +173,24 @@
 
 
       </div>
+
+<!-- Ajouter Contact Form -->
+    <div id="form" class=" m-5 w-[90%] h-[30vh] px-4 hidden border border-wa-green  ">
+      <h2 class="text-xl text-center text-white font-semibold mb-2">Ajouter un contact</h2>
+      <div id="form-contact" class="flex flex-col gap-2">
+        <input id="nom" type="text" name="nom" placeholder="Nom" class="p-2 rounded bg-color-gris-clair" required>
+          <span class="erreurNom text-red-700 hidden">le Nom ne doit pas etre vide</span>
+        <input  id="actus" type="text" name="actus" placeholder="Actus" class="p-2 rounded bg-color-gris-clair hidden" >
+        <input id="telephone" type="text" name="telephone" placeholder="Téléphone" class="p-2 rounded bg-color-gris-clair ">
+        <span class="erreur text-red-700 hidden">Le numero N'est pas valide</span>
+            <span class="erreurTelephone text-red-700 hidden">le numero de telphone nne doit pas etre vide</span>
+
+        <button id="ajouter" type="submit" class="bg-wa-green  underline text-white p-2 rounded">Enregistrer</button>
+        <button type="button" id="annuler" class="text-wa-color-icones -400 underline">Annuler</button>
+      </div>
+    </div>
+
+
 
       <!-- Groupes Section -->
       <div class="flex-1 overflow-y-auto hidden" id="ListeGroupes">

@@ -95,106 +95,88 @@ export async function affiche1() {
 window.afficheMessages = afficheMessages;
 
 sendButton.addEventListener('click', envoyerMessage ,()=>{
-    envoiMessage(idDiscussionActive, utilisateurSauvegarde);
+    envoyerMessage(idDiscussionActive, utilisateurSauvegarde);
 
 })
 
-// async function envoyerMessage() {
-//   const input = document.getElementById('messageInput');
-//   const texte = input.value.trim();
 
-//   if (!texte || !idDiscussionActive) return;
 
-//   const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const ajouter = document.getElementById('ajouter');
 
-//   try {
-//     await chargerDonnees(); // Charger les données avant de les utiliser
+ajouter.addEventListener('click', ajouterContact);
 
-//     const groupe = datag.find(g => g.id === idDiscussionActive);
+async function ajouterContact() {
+  const nom = document.getElementById('nom').value.trim();
+  const telephone = document.getElementById('telephone').value.trim();
+  const erreurNom=document.querySelector('.erreurNom');
+const erreurTelephone=document.querySelector('.erreurTelephone')
+const erruer=document.querySelector('.erruer');
 
-//     if (groupe) {
-//       const message = {
-//         texte,
-//         heure,
-//         envoye: true,
-//         lu: false,
-//         auteur: utilisateurSauvegarde
-//       };
+  if (!nom || !telephone) {
+    erreurNom.classList.remove('hidden')
+    erreurTelephone.classList.remove('hidden')
 
-//       groupe.message.push(message);
-//       groupe.dernierMessage = texte;
-//       groupe.date = heure;
-//       groupe.brouillon = "";
+    return;
+  }
+    if (!/^\d+$/.test(telephoneValue)) {
+    erruer.classList.remove('hidden');
+    return;
+  }
 
-//       await fetch(`${urlgroupe}/${groupe.id}`, {
-//         method: 'PUT',
-//         headers: {
-//           'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(groupe)
-//       });
+  try {
+    await chargerDonnees();
 
-//       afficheGroupe();
+    const contact = {
+      nom: nom,
+      avatar: "M",
+      dernierMessage: "",
+      heure: "12:47",
+      nonLu: 0,
+      etat: true,
+      actus: "Mawahibou Nafih",
+      telephone: telephone,
+      brouillon: "",
+      contact: [utilisateurSauvegarde],
+      noteVocale: false,
+      messages: []
+    };
 
-//     } else {
-//       const contact = data.find(c => c.id === idDiscussionActive);
+    const response = await fetch(urldiscussion, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(contact)
+    });
 
-//       if (contact) {
-//         const nouveauMessage = {
-//           texte,
-//           heure,
-//           envoye: true,
-//           lu: false,
-//           auteur: utilisateurSauvegarde,
-//           destinataire: contact.id
-//         };
+    if (!response.ok) {
+      throw new Error("Erreur lors de l'ajout du contact.");
+    }
 
-//         contact.messages.push(nouveauMessage);
-//         contact.dernierMessage = texte;
-//         contact.heure = heure;
-//         contact.brouillon = "";
+    const nouveauContact = await response.json();
 
-//         await fetch(`${urldiscussion}/${contact.id}`, {
-//           method: 'PUT',
-//           headers: {
-//             'Content-Type': 'application/json'
-//           },
-//           body: JSON.stringify(contact)
-//         });
+    const uc = data.find(c => c.id === utilisateurSauvegarde);
+    if (uc) {
+      uc.contact.push(nouveauContact.id);
 
-//         const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
-//         if (utilisateurConnecteObj) {
-//           const messageUtilisateur = {
-//             texte,
-//             heure,
-//             envoye: true,
-//             lu: true,
-//             auteur: utilisateurSauvegarde,
-//             destinataire: contact.id
-//           };
+      await fetch(`${urldiscussion}/${uc.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(uc)
+      });
+    }
 
-//           utilisateurConnecteObj.messages.push(messageUtilisateur);
-//           utilisateurConnecteObj.dernierMessage = texte;
-//           utilisateurConnecteObj.heure = heure;
-//           await fetch(`${urldiscussion}/${utilisateurConnecteObj.id}`, {
-//             method: 'PUT',
-//             headers: {
-//               'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify(utilisateurConnecteObj)
-//           });
-//         }
+    document.getElementById('nom').value = '';
+    document.getElementById('telephone').value = '';
 
-//         afficheMessages(contact.id);
-//       }
-//     }
+    // Mettre à jour l'affichage
+    affiche1();
 
-//     input.value = '';
+  } catch (error) {
+    console.error("Erreur lors de l'ajout du contact :", error);
+    alert("Une erreur s'est produite lors de l'ajout du contact. Veuillez réessayer.");
+  }
+}
 
-//     affiche1();
-
-//   } catch (error) {
-//     console.error("Erreur lors de l'envoi du message :", error);
-//     alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
-//   }
-// }

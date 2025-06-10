@@ -1,6 +1,6 @@
-// export const urldiscussion='https://projet-wathsap-js-backend-1.onrender.com/discussions';
+// export const urldiscussion='http://localhost:3000/discussions';
 
-// export const urlgroupe='https://projet-wathsap-js-backend-1.onrender.com/groupes';
+// export const urlgroupe='http://localhost:3000/groupes';
 
 
 //  const a= await fetch(urldiscussion)

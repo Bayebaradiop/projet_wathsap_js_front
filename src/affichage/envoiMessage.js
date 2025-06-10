@@ -84,12 +84,13 @@ import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
         }
 
         afficheMessages(contact.id);
+            affiche1();
+
       }
     }
 
     input.value = '';
 
-    affiche1();
 
   } catch (error) {
     console.error("Erreur lors de l'envoi du message :", error);
