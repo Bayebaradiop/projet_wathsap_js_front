@@ -1,14 +1,13 @@
 import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
-
-let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-let idDiscussionActive = null;
-
+import { envoyerMessage } from "./envoiMessage.js";
+export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
+export let idDiscussionActive = null;
 console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
-  await chargerDonnees(); // Charger les données avant de les utiliser
+  await chargerDonnees(); 
 
   const u = data.find(r => r.id === utilisateurSauvegarde);
   if (!u) {
@@ -42,7 +41,7 @@ export async function affiche1() {
   });
 }
 
-async function afficheMessages(identifiant) {
+ export async function afficheMessages(identifiant) {
   try {
     await chargerDonnees();
 
@@ -59,7 +58,6 @@ async function afficheMessages(identifiant) {
       (msg.auteur === utilisateurSauvegarde && msg.destinataire === contact.id) ||
       (msg.auteur === contact.id && msg.destinataire === utilisateurSauvegarde)
     );
-
     messages.forEach(msg => {
       const align = msg.auteur === utilisateurSauvegarde ? "justify-end" : "justify-start";
       const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-white text-color-text";
@@ -96,104 +94,107 @@ async function afficheMessages(identifiant) {
 
 window.afficheMessages = afficheMessages;
 
-sendButton.addEventListener('click', envoyerMessage);
+sendButton.addEventListener('click', envoyerMessage ,()=>{
+    envoiMessage(idDiscussionActive, utilisateurSauvegarde);
 
-async function envoyerMessage() {
-  const input = document.getElementById('messageInput');
-  const texte = input.value.trim();
+})
 
-  if (!texte || !idDiscussionActive) return;
+// async function envoyerMessage() {
+//   const input = document.getElementById('messageInput');
+//   const texte = input.value.trim();
 
-  const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+//   if (!texte || !idDiscussionActive) return;
 
-  try {
-    await chargerDonnees(); // Charger les données avant de les utiliser
+//   const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-    const groupe = datag.find(g => g.id === idDiscussionActive);
+//   try {
+//     await chargerDonnees(); // Charger les données avant de les utiliser
 
-    if (groupe) {
-      const message = {
-        texte,
-        heure,
-        envoye: true,
-        lu: false,
-        auteur: utilisateurSauvegarde
-      };
+//     const groupe = datag.find(g => g.id === idDiscussionActive);
 
-      groupe.message.push(message);
-      groupe.dernierMessage = texte;
-      groupe.date = heure;
-      groupe.brouillon = "";
+//     if (groupe) {
+//       const message = {
+//         texte,
+//         heure,
+//         envoye: true,
+//         lu: false,
+//         auteur: utilisateurSauvegarde
+//       };
 
-      await fetch(`${urlgroupe}/${groupe.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(groupe)
-      });
+//       groupe.message.push(message);
+//       groupe.dernierMessage = texte;
+//       groupe.date = heure;
+//       groupe.brouillon = "";
 
-      afficheGroupe();
+//       await fetch(`${urlgroupe}/${groupe.id}`, {
+//         method: 'PUT',
+//         headers: {
+//           'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(groupe)
+//       });
 
-    } else {
-      const contact = data.find(c => c.id === idDiscussionActive);
+//       afficheGroupe();
 
-      if (contact) {
-        const nouveauMessage = {
-          texte,
-          heure,
-          envoye: true,
-          lu: false,
-          auteur: utilisateurSauvegarde,
-          destinataire: contact.id
-        };
+//     } else {
+//       const contact = data.find(c => c.id === idDiscussionActive);
 
-        contact.messages.push(nouveauMessage);
-        contact.dernierMessage = texte;
-        contact.heure = heure;
-        contact.brouillon = "";
+//       if (contact) {
+//         const nouveauMessage = {
+//           texte,
+//           heure,
+//           envoye: true,
+//           lu: false,
+//           auteur: utilisateurSauvegarde,
+//           destinataire: contact.id
+//         };
 
-        await fetch(`${urldiscussion}/${contact.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(contact)
-        });
+//         contact.messages.push(nouveauMessage);
+//         contact.dernierMessage = texte;
+//         contact.heure = heure;
+//         contact.brouillon = "";
 
-        const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
-        if (utilisateurConnecteObj) {
-          const messageUtilisateur = {
-            texte,
-            heure,
-            envoye: true,
-            lu: true,
-            auteur: utilisateurSauvegarde,
-            destinataire: contact.id
-          };
+//         await fetch(`${urldiscussion}/${contact.id}`, {
+//           method: 'PUT',
+//           headers: {
+//             'Content-Type': 'application/json'
+//           },
+//           body: JSON.stringify(contact)
+//         });
 
-          utilisateurConnecteObj.messages.push(messageUtilisateur);
-          utilisateurConnecteObj.dernierMessage = texte;
-          utilisateurConnecteObj.heure = heure;
-          await fetch(`${urldiscussion}/${utilisateurConnecteObj.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(utilisateurConnecteObj)
-          });
-        }
+//         const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
+//         if (utilisateurConnecteObj) {
+//           const messageUtilisateur = {
+//             texte,
+//             heure,
+//             envoye: true,
+//             lu: true,
+//             auteur: utilisateurSauvegarde,
+//             destinataire: contact.id
+//           };
 
-        afficheMessages(contact.id);
-      }
-    }
+//           utilisateurConnecteObj.messages.push(messageUtilisateur);
+//           utilisateurConnecteObj.dernierMessage = texte;
+//           utilisateurConnecteObj.heure = heure;
+//           await fetch(`${urldiscussion}/${utilisateurConnecteObj.id}`, {
+//             method: 'PUT',
+//             headers: {
+//               'Content-Type': 'application/json'
+//             },
+//             body: JSON.stringify(utilisateurConnecteObj)
+//           });
+//         }
 
-    input.value = '';
+//         afficheMessages(contact.id);
+//       }
+//     }
 
-    affiche1();
+//     input.value = '';
 
-  } catch (error) {
-    console.error("Erreur lors de l'envoi du message :", error);
-    alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
-  }
-}
+//     affiche1();
+
+//   } catch (error) {
+//     console.error("Erreur lors de l'envoi du message :", error);
+//     alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
+//   }
+// }

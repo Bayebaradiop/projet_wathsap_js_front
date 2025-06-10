@@ -3,10 +3,8 @@ import { affiche1 } from "./affichage/discussion.js";
 import { afficheGroupe } from "./affichage/afficheGroupe.js";
 import './style.css';
 import { urldiscussion, urlgroupe } from "./url_api/environement.js";
-
 let utilisateurConnecte = null;
 let data = [];
-
 // Sélection des éléments DOM
 const btnNoLues = document.getElementById('btnNoLues');
 const listeNonLues = document.getElementById('listeNonLues');
@@ -27,7 +25,6 @@ const login = document.querySelector('.login');
 const messagesContainer = document.getElementById('messagesContainer');
 const sendButton = document.getElementById('sendButton');
 const btnLogout = document.getElementById('btnLogout');
-
 // Gestion des vues
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
 btnmessage.addEventListener('click', () => {
@@ -43,11 +40,6 @@ btnParametres.addEventListener('click', () => {
   btnListe.classList.add('hidden');
 });
 btnTous.addEventListener('click', () => changerVue('listeToute'));
-
-
-
-
-
 async function chargerDonnees() {
   try {
     const response = await fetch(urldiscussion);
@@ -56,12 +48,10 @@ async function chargerDonnees() {
     }
     data = await response.json();
     console.log("Données chargées :", data);
-
     // Vérifiez si un utilisateur est connecté
     let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
     if (utilisateurSauvegarde) {
       utilisateurConnecte = utilisateurSauvegarde;
-
       const user = data.find(c => c.id === utilisateurConnecte);
       if (user) {
         document.getElementById('loginForm').style.display = 'none';
@@ -78,23 +68,16 @@ async function chargerDonnees() {
     alert("Impossible de charger les données. Veuillez réessayer plus tard.");
   }
 }
-
-
-
 document.getElementById('btnLogin').addEventListener('click', () => {
   const tel = document.getElementById('loginTelephone').value.trim();
   const error = document.getElementById('loginError');
-
   error.classList.add('hidden');
-
   if (!tel) {
     error.textContent = "Veuillez entrer un numéro de téléphone.";
     error.classList.remove('hidden');
     return;
   }
-
   const user = data.find(c => c.telephone === tel);
-
   if (user) {
     utilisateurConnecte = user.id;
     localStorage.setItem('utilisateurConnecte', utilisateurConnecte);
@@ -104,7 +87,6 @@ document.getElementById('btnLogin').addEventListener('click', () => {
     error.classList.remove('hidden');
   }
 });
-
 // Gestion de la déconnexion
 btnLogout.addEventListener('click', () => {
   utilisateurConnecte = null;
@@ -112,13 +94,10 @@ btnLogout.addEventListener('click', () => {
   h1.classList.add('hidden');
   h2.classList.add('hidden');
   document.getElementById('loginForm').style.display = 'flex';
-  listeToute.innerHTML = ''; // Réinitialiser la liste des discussions
-  ListeGroupes.innerHTML = ''; // Réinitialiser la liste des groupes
+  listeToute.innerHTML = ''; 
+  ListeGroupes.innerHTML = ''; 
   alert('Vous êtes déconnecté.');
 });
-
-
-
 chargerDonnees();
 
 

@@ -1,17 +1,17 @@
 
-
-
-async function envoyerMessage() {
+import { data, datag, urldiscussion, urlgroupe, chargerDonnees } from "../url_api/environement.js";
+import { affiche1} from "./discussion.js";
+import { afficheGroupe } from "./afficheGroupe.js";
+import { afficheMessages } from "./discussion.js";
+import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
+ export  async function envoyerMessage() {
   const input = document.getElementById('messageInput');
   const texte = input.value.trim();
 
   if (!texte || !idDiscussionActive) return;
-
   const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
   try {
-    await chargerDonnees(); // Charger les données avant de les utiliser
-
+    await chargerDonnees();
     const groupe = datag.find(g => g.id === idDiscussionActive);
 
     if (groupe) {
@@ -22,12 +22,10 @@ async function envoyerMessage() {
         lu: false,
         auteur: utilisateurSauvegarde
       };
-
       groupe.message.push(message);
       groupe.dernierMessage = texte;
       groupe.date = heure;
       groupe.brouillon = "";
-
       await fetch(`${urlgroupe}/${groupe.id}`, {
         method: 'PUT',
         headers: {
@@ -50,12 +48,10 @@ async function envoyerMessage() {
           auteur: utilisateurSauvegarde,
           destinataire: contact.id
         };
-
         contact.messages.push(nouveauMessage);
         contact.dernierMessage = texte;
         contact.heure = heure;
         contact.brouillon = "";
-
         await fetch(`${urldiscussion}/${contact.id}`, {
           method: 'PUT',
           headers: {
