@@ -44,7 +44,7 @@ export async function affiche1() {
 
 async function afficheMessages(identifiant) {
   try {
-    await chargerDonnees(); // Charger les données avant de les utiliser
+    await chargerDonnees();
 
     const contact = data.find(c => c.id === identifiant);
     if (!contact) {
@@ -62,7 +62,7 @@ async function afficheMessages(identifiant) {
 
     messages.forEach(msg => {
       const align = msg.auteur === utilisateurSauvegarde ? "justify-end" : "justify-start";
-      const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-color-blanc text-color-text";
+      const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-white text-color-text";
       const radius = msg.auteur === utilisateurSauvegarde ? "rounded-tr-full rounded-l-full" : "rounded-tl-full rounded-r-full";
 
       let check = "";
