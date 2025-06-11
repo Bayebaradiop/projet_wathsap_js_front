@@ -4,8 +4,8 @@
       "id": "06a2",
       "nom": "Ma Mère Ma Vie❤️",
       "avatar": "M",
-      "dernierMessage": "123",
-      "heure": "13:33",
+      "dernierMessage": "ee",
+      "heure": "14:41",
       "nonLus": 0,
       "etat": true,
       "actus": "Mawahibou Nafih",
@@ -105,6 +105,78 @@
           "lu": true,
           "auteur": "06a2",
           "destinataire": "28e2"
+        },
+        {
+          "texte": "dd",
+          "heure": "11:18",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "cv",
+          "heure": "11:19",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "vv",
+          "heure": "11:20",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "cc",
+          "heure": "11:23",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "ww",
+          "heure": "11:23",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "f",
+          "heure": "11:30",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "dfdd"
+        },
+        {
+          "texte": "d",
+          "heure": "11:41",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "yyyy",
+          "heure": "11:41",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "a195"
+        },
+        {
+          "texte": "ee",
+          "heure": "14:41",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "a195"
         }
       ]
     },
@@ -112,8 +184,8 @@
       "id": "28e2",
       "nom": "Ahmed ka",
       "avatar": "AE",
-      "dernierMessage": "123",
-      "heure": "13:33",
+      "dernierMessage": "d",
+      "heure": "11:41",
       "nonLus": 3,
       "etat": true,
       "brouillon": "",
@@ -192,6 +264,54 @@
           "lu": false,
           "auteur": "06a2",
           "destinataire": "28e2"
+        },
+        {
+          "texte": "dd",
+          "heure": "11:18",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "cv",
+          "heure": "11:19",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "vv",
+          "heure": "11:20",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "cc",
+          "heure": "11:23",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "ww",
+          "heure": "11:23",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "d",
+          "heure": "11:41",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "28e2"
         }
       ]
     },
@@ -199,8 +319,8 @@
       "id": "a195",
       "nom": "Test T",
       "avatar": "T",
-      "dernierMessage": "waw wawwww",
-      "heure": "12:57",
+      "dernierMessage": "ee",
+      "heure": "14:41",
       "nonLus": 3,
       "etat": true,
       "actus": "Occuper",
@@ -258,6 +378,22 @@
           "lu": true,
           "auteur": "a195",
           "destinataire": "06a2"
+        },
+        {
+          "texte": "yyyy",
+          "heure": "11:41",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "a195"
+        },
+        {
+          "texte": "ee",
+          "heure": "14:41",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "a195"
         }
       ]
     },
@@ -265,8 +401,8 @@
       "id": "dfdd",
       "nom": "44",
       "avatar": "M",
-      "dernierMessage": "",
-      "heure": "12:47",
+      "dernierMessage": "f",
+      "heure": "11:30",
       "nonLu": 0,
       "etat": true,
       "actus": "Mawahibou Nafih",
@@ -276,7 +412,16 @@
         "06a2"
       ],
       "noteVocale": false,
-      "messages": []
+      "messages": [
+        {
+          "texte": "f",
+          "heure": "11:30",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "dfdd"
+        }
+      ]
     }
   ],
   "groupes": [
@@ -284,6 +429,7 @@
       "id": "5",
       "nom": "Amis 🎉",
       "description": "Groupe pour organiser nos sorties",
+      "avatar": "M",
       "etat": true,
       "admin": [
         "06a2"
@@ -305,12 +451,14 @@
           "texte": "Salut tout le monde !",
           "auteur": 2,
           "heure": "15:00",
+          "nom": "Ahmed ka",
           "envoye": true,
           "lu": true
         },
         {
           "texte": "On sort ce week-end ?",
           "auteur": 3,
+          "nom": "Test T",
           "heure": "15:10",
           "envoye": true,
           "lu": false
@@ -322,8 +470,9 @@
       "nom": "Travail 💼",
       "description": "Groupe pour les discussions professionnelles",
       "etat": true,
+      "avatar": "M",
       "admin": [],
-      "dernierMessage": "On se voit demain ?",
+      "dernierMessage": "rr",
       "contact": [
         1
       ],
@@ -346,6 +495,7 @@
           "texte": "N'oubliez pas la réunion demain.",
           "auteur": 3,
           "heure": "18:00",
+          "nom": "Test T",
           "envoye": true,
           "lu": false
         },
@@ -353,10 +503,107 @@
           "texte": "Merci pour le rappel.",
           "auteur": 1,
           "heure": "18:05",
+          "nom": "Ma Mère Ma Vie❤️",
           "envoye": true,
           "lu": true
+        },
+        {
+          "texte": "cv",
+          "heure": "11:26",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "rr",
+          "heure": "11:30",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "vv",
+          "heure": "11:33",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "122",
+          "heure": "11:39",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "dd",
+          "heure": "11:39",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "ddd",
+          "heure": "11:39",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "rr",
+          "heure": "11:41",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "uuuuuuuuuuuuuuu",
+          "heure": "11:41",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "cv",
+          "heure": "12:37",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "rr",
+          "heure": "14:41",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "ddd",
+          "heure": "14:41",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
+        },
+        {
+          "texte": "rr",
+          "heure": "14:41",
+          "nom": "Ma Mère Ma Vie❤️",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2"
         }
-      ]
+      ],
+      "date": "14:41",
+      "brouillon": ""
     }
   ]
 }

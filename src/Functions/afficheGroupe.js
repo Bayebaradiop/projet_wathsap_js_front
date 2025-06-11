@@ -1,19 +1,22 @@
-  
+
 import { data, datag, chargerDonnees } from "../url_api/environement.js";
+import { pourAfficherEntete } from "./afficheEntete.js";
 
 let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 const ListeGroupes = document.getElementById('ListeGroupes');
+const messageG=document.getElementById('messageG');
+
+export let idDiscussionActiveG = null;
 
 export async function afficheGroupe() {
   try {
-    await chargerDonnees(); // Charger les données avant de les utiliser
+    await chargerDonnees();
 
     if (!utilisateurSauvegarde) {
       console.error("Aucun utilisateur connecté trouvé dans le localStorage.");
       return;
     }
 
-    // Filtrer les groupes visibles pour l'utilisateur connecté
     const visible = datag.filter(groupe =>
       groupe.membres.some(membre => membre.id === utilisateurSauvegarde)
     );
@@ -24,13 +27,11 @@ export async function afficheGroupe() {
       return;
     }
 
-    // Réinitialiser le contenu de la liste des groupes
     ListeGroupes.innerHTML = '';
 
-    // Générer le HTML pour chaque groupe
     visible.forEach((g) => {
       ListeGroupes.innerHTML += `
-        <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item">
+        <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="messageGroupe('${g.id}')">
           <div
             class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
             ${g.nom.charAt(0).toUpperCase()}${g.nom.charAt(1).toUpperCase()}
@@ -54,3 +55,30 @@ export async function afficheGroupe() {
     ListeGroupes.innerHTML = `<p class="text-wa-text-secondary text-sm">Erreur lors du chargement des groupes.</p>`;
   }
 }
+
+ export function messageGroupe(idg) {
+  chargerDonnees();
+
+  messagesContainer.innerHTML=''
+  const g=datag.find(g=>g.id===idg);
+// let recup=g.datag.find(m=>m.id===utilisateurSauvegarde);
+
+  pourAfficherEntete(idg,datag)
+  g.message.forEach((gp)=>{
+    messagesContainer.innerHTML+=`
+
+          <div class="flex justify-end mb-2">
+            <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-lg bg-wa-message-out text-white">
+            <h2 class="text-sm mb-2">${gp.nom}</h2>
+              <p class="text-sm">${gp.texte}</p>
+              <p class="text-xs text-green-200 mt-1">${gp.heure}</p>
+            </div>
+            </div> 
+    `
+  })
+  idDiscussionActiveG=idg
+
+}
+window.messageGroupe=messageGroupe
+
+

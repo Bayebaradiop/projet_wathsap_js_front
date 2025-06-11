@@ -1,23 +1,24 @@
 
 import { data, datag, urldiscussion, urlgroupe, chargerDonnees } from "../url_api/environement.js";
-import { affiche1} from "./discussion.js";
-import { afficheGroupe } from "./afficheGroupe.js";
+import { affiche1 } from "./discussion.js";
+import { afficheGroupe, idDiscussionActiveG, messageGroupe } from "./afficheGroupe.js";
 import { afficheMessages } from "./discussion.js";
-import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
- export  async function envoyerMessage() {
+import { idDiscussionActive, utilisateurSauvegarde } from "./discussion.js";
+
+export async function envoyerMessage() {
   const input = document.getElementById('messageInput');
   const texte = input.value.trim();
-
   if (!texte || !idDiscussionActive) return;
   const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   try {
     await chargerDonnees();
-    const groupe = datag.find(g => g.id === idDiscussionActive);
-
+    let groupe = datag.find(g => g.id === idDiscussionActiveG);
+    let recup = data.find(d => d.id === utilisateurSauvegarde);
     if (groupe) {
       const message = {
         texte,
         heure,
+        nom: recup.nom,
         envoye: true,
         lu: false,
         auteur: utilisateurSauvegarde
@@ -33,12 +34,10 @@ import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
         },
         body: JSON.stringify(groupe)
       });
-
+      messageGroupe(groupe.id);
       afficheGroupe();
-
     } else {
       const contact = data.find(c => c.id === idDiscussionActive);
-
       if (contact) {
         const nouveauMessage = {
           texte,
@@ -59,7 +58,6 @@ import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
           },
           body: JSON.stringify(contact)
         });
-
         const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
         if (utilisateurConnecteObj) {
           const messageUtilisateur = {
@@ -70,7 +68,6 @@ import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
             auteur: utilisateurSauvegarde,
             destinataire: contact.id
           };
-
           utilisateurConnecteObj.messages.push(messageUtilisateur);
           utilisateurConnecteObj.dernierMessage = texte;
           utilisateurConnecteObj.heure = heure;
@@ -82,16 +79,11 @@ import {idDiscussionActive,utilisateurSauvegarde} from "./discussion.js";
             body: JSON.stringify(utilisateurConnecteObj)
           });
         }
-
         afficheMessages(contact.id);
-            affiche1();
-
+        affiche1();
       }
     }
-
     input.value = '';
-
-
   } catch (error) {
     console.error("Erreur lors de l'envoi du message :", error);
     alert("Erreur lors de l'envoi du message. Veuillez réessayer.");

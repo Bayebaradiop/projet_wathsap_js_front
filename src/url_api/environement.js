@@ -2,22 +2,17 @@
 
 // export const urlgroupe='http://localhost:3000/groupes';
 
-
 //  const a= await fetch(urldiscussion)
-
 // export const data=await a.json();
 //  const g=await fetch(urlgroupe)
 // export const datag=await g.json();
 
-
-
-    export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
-    export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
+export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
+export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
 
     let data = [];
     let datag = [];
 
-    // Fonction pour charger les données
     export async function chargerDonnees() {
       try {
         const discussionsResponse = await fetch(urldiscussion);
@@ -33,5 +28,4 @@
       }
     }
 
-    // Exporter les données pour les utiliser dans d'autres fichiers
     export { data, datag };

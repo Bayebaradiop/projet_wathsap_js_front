@@ -1,22 +1,19 @@
 import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
+import { idDiscussionActiveG } from "./afficheGroupe.js";
 import { envoyerMessage } from "./envoiMessage.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-export let idDiscussionActive = null;
-console.log("Données des discussions :", data);
+export let idDiscussionActive = null;console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
   await chargerDonnees(); 
-
   const u = data.find(r => r.id === utilisateurSauvegarde);
   if (!u) {
     console.error("Utilisateur introuvable pour l'ID :", utilisateurSauvegarde);
     return;
   }
-
   const visible = data.filter(r => u.contact.includes(r.id));
-
   listeToute.innerHTML = '';
   visible.forEach((d) => {
     listeToute.innerHTML += `
@@ -40,7 +37,6 @@ export async function affiche1() {
     `;
   });
 }
-
  export async function afficheMessages(identifiant) {
   try {
     await chargerDonnees();
@@ -50,8 +46,7 @@ export async function affiche1() {
       console.error("Contact introuvable.");
       return;
     }
-
-    pourAfficherEntete(identifiant);
+    pourAfficherEntete(identifiant,data);
     messagesContainer.innerHTML = "";
 
     const messages = contact.messages.filter(msg =>
@@ -69,7 +64,6 @@ export async function affiche1() {
           ? `<span class="text-color-noir ml-2">&#10003;&#10003;</span>` 
           : `<span class="text-color-noir ml-2">&#10003;</span>`;
       }
-
       messagesContainer.innerHTML += `
         <div class="flex ${align} mb-2">
           <div class="${bgColor} max-w-xs px-3 py-2 ${radius}">
@@ -91,38 +85,29 @@ export async function affiche1() {
     console.error("Erreur lors du chargement des discussions :", error);
   }
 }
-
 window.afficheMessages = afficheMessages;
 
 sendButton.addEventListener('click', envoyerMessage ,()=>{
-    envoyerMessage(idDiscussionActive, utilisateurSauvegarde);
-
+    envoyerMessage(idDiscussionActive, utilisateurSauvegarde,idDiscussionActiveG);
 })
 
-
-
 const ajouter = document.getElementById('ajouter');
-
 ajouter.addEventListener('click', ajouterContact);
-
 async function ajouterContact() {
   const nom = document.getElementById('nom').value.trim();
   const telephone = document.getElementById('telephone').value.trim();
   const erreurNom=document.querySelector('.erreurNom');
 const erreurTelephone=document.querySelector('.erreurTelephone')
 const erruer=document.querySelector('.erruer');
-
   if (!nom || !telephone) {
     erreurNom.classList.remove('hidden')
     erreurTelephone.classList.remove('hidden')
-
     return;
   }
     if (!/^\d+$/.test(telephoneValue)) {
     erruer.classList.remove('hidden');
     return;
   }
-
   try {
     await chargerDonnees();
 
@@ -171,7 +156,6 @@ const erruer=document.querySelector('.erruer');
     document.getElementById('nom').value = '';
     document.getElementById('telephone').value = '';
 
-    // Mettre à jour l'affichage
     affiche1();
 
   } catch (error) {

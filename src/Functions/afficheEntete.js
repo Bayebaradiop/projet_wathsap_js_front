@@ -2,7 +2,7 @@
 import {data,datag} from "../url_api/environement.js";
 const tete=document.getElementById('chatHeader');
 
-export function pourAfficherEntete(identifiant) {
+export function pourAfficherEntete(identifiant,data) {
   const id=data.find(d=>d.id===identifiant);
 
   tete.innerHTML=`
