@@ -2,6 +2,7 @@ import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/e
 import { pourAfficherEntete } from "./afficheEntete.js";
 import { idDiscussionActiveG } from "./afficheGroupe.js";
 import { envoyerMessage } from "./envoiMessage.js";
+import {listeNo} from "./afficheNosLues.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 export let idDiscussionActive = null;console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
@@ -80,16 +81,31 @@ export async function affiche1() {
     input.value = contact.brouillon || "";
 
     idDiscussionActive = identifiant;
+    contact.nonLus=0;
+    await fetch(`${urldiscussion}/${contact.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(contact)
+    });
+
+    listeNo();
+
 
   } catch (error) {
     console.error("Erreur lors du chargement des discussions :", error);
   }
+
+
 }
 window.afficheMessages = afficheMessages;
 
 sendButton.addEventListener('click', envoyerMessage ,()=>{
     envoyerMessage(idDiscussionActive, utilisateurSauvegarde,idDiscussionActiveG);
 })
+
+
 
 const ajouter = document.getElementById('ajouter');
 ajouter.addEventListener('click', ajouterContact);
@@ -98,14 +114,14 @@ async function ajouterContact() {
   const telephone = document.getElementById('telephone').value.trim();
   const erreurNom=document.querySelector('.erreurNom');
 const erreurTelephone=document.querySelector('.erreurTelephone')
-const erruer=document.querySelector('.erruer');
+const err=document.querySelector('.err');
   if (!nom || !telephone) {
     erreurNom.classList.remove('hidden')
     erreurTelephone.classList.remove('hidden')
     return;
   }
-    if (!/^\d+$/.test(telephoneValue)) {
-    erruer.classList.remove('hidden');
+    if (!/^\d+$/.test(telephone)) {
+    err.classList.remove('hidden');
     return;
   }
   try {

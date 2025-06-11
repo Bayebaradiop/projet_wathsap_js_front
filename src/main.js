@@ -1,14 +1,14 @@
 import { changerVue } from "./changementVue/changementVue.js";
 import { affiche1, utilisateurSauvegarde } from "./Functions/discussion.js";
+import { listeNo } from "./Functions/afficheNosLues.js";
 import { afficheGroupe } from "./Functions/afficheGroupe.js";
 import './style.css';
 import { deconnexion } from "./Functions/auth.js";
-
 import { urldiscussion, urlgroupe} from "./url_api/environement.js";
 let utilisateurConnecte = null;
 let data = [];
 const btnNoLues = document.getElementById('btnNoLues');
-const listeNonLues = document.getElementById('listeNonLues');
+export const listeNonLues = document.getElementById('listeNonLues');
 const btnFavoris = document.getElementById('btnFavoris');
 const listeFavoris = document.getElementById('listeFavoris');
 const ListeGroupes = document.getElementById('ListeGroupes');
@@ -64,6 +64,7 @@ async function chargerDonnees() {
         h2.classList.remove('hidden');
         affiche1();
         afficheGroupe();
+        listeNo();
       } else {
         console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
       }
