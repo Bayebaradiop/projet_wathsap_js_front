@@ -9,7 +9,7 @@ export function pourAfficherEntete(identifiant,data) {
 
       <div class="flex">
               <div class=" text-white bg-red-500 rounded-full w-[40px] h-[40px] flex items-center justify-center">
-                    ${id.avatar}
+            ${id.nom.charAt(0).toUpperCase()}${id.nom.charAt(1).toUpperCase()}
                 </div >
 
 

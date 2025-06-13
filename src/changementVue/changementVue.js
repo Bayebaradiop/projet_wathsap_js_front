@@ -8,6 +8,7 @@ export function changerVue(vue) {
     pageParametres: pageParametres,
     listeToute,
     form: form,
+    formGroupe: formGroupe,
   };
 
   Object.values(sections).forEach(section => section.classList.add('hidden'));

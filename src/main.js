@@ -1,5 +1,5 @@
 import { changerVue } from "./changementVue/changementVue.js";
-import { affiche1, utilisateurSauvegarde } from "./Functions/discussion.js";
+import { affiche1, utilisateurSauvegarde,afficherCheckboxMembres } from "./Functions/discussion.js";
 import { listeNo } from "./Functions/afficheNosLues.js";
 import { afficheGroupe } from "./Functions/afficheGroupe.js";
 import './style.css';
@@ -28,7 +28,12 @@ const sendButton = document.getElementById('sendButton');
 const btnLogout = document.getElementById('btnLogout');
 const form= document.getElementById('loginForm');
 const btnAjouterContact = document.getElementById('btnAjouterContact');
-
+const formGroupe= document.getElementById('formGroupe');
+const btnGroupe = document.getElementById('btnGroupe');
+btnGroupe.addEventListener('click', async () => {
+  changerVue('formGroupe');
+  await afficherCheckboxMembres();
+});
 btnAjouterContact.addEventListener('click',()=>changerVue('form')); 
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
 btnmessage.addEventListener('click', () => {
@@ -43,8 +48,7 @@ btnParametres.addEventListener('click', () => {
   recherche.classList.add('hidden');
   btnListe.classList.add('hidden');
 });
-btnTous.addEventListener('click', () => changerVue('listeToute'));
-
+btnTous.addEventListener('click', () => changerVue('listeToute'))
 
 async function chargerDonnees() {
   try {
@@ -65,6 +69,7 @@ async function chargerDonnees() {
         affiche1();
         afficheGroupe();
         listeNo();
+          // afficherCheckboxMembres();
       } else {
         console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
       }

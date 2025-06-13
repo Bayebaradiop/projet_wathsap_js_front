@@ -1,10 +1,14 @@
 import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
-import { idDiscussionActiveG } from "./afficheGroupe.js";
+import { changerVue } from "../changementVue/changementVue.js";
 import { envoyerMessage } from "./envoiMessage.js";
 import {listeNo} from "./afficheNosLues.js";
+import {ajouterContact } from "./ajouterContact.js";
+import { Ajoutgrouppe } from "./AjouterGroupe.js";
+import {afficheMembresGroupe} from "./AjoutContactGroupe.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-export let idDiscussionActive = null;console.log("Données des discussions :", data);
+export let idDiscussionActive = null;
+console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
@@ -31,7 +35,7 @@ export async function affiche1() {
           </div>
           <div class="flex justify-between items-center">
             <p class="text-wa-text-secondary text-sm truncate">${d.dernierMessage}</p>
-            <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">2</span>
+            <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">${d.nonLus}</span>
           </div>
         </div>
       </div>
@@ -39,6 +43,7 @@ export async function affiche1() {
   });
 }
  export async function afficheMessages(identifiant) {
+
   try {
     await chargerDonnees();
 
@@ -91,92 +96,48 @@ export async function affiche1() {
     });
 
     listeNo();
-
+    affiche1();
 
   } catch (error) {
     console.error("Erreur lors du chargement des discussions :", error);
   }
-
-
 }
 window.afficheMessages = afficheMessages;
-
-sendButton.addEventListener('click', envoyerMessage ,()=>{
-    envoyerMessage(idDiscussionActive, utilisateurSauvegarde,idDiscussionActiveG);
-})
-
-
+sendButton.addEventListener('click',envoyerMessage
+);
 
 const ajouter = document.getElementById('ajouter');
+const ajouterNouveauContact=document.getElementById('ajouterNouveauContact');
 ajouter.addEventListener('click', ajouterContact);
-async function ajouterContact() {
-  const nom = document.getElementById('nom').value.trim();
-  const telephone = document.getElementById('telephone').value.trim();
-  const erreurNom=document.querySelector('.erreurNom');
-const erreurTelephone=document.querySelector('.erreurTelephone')
-const err=document.querySelector('.err');
-  if (!nom || !telephone) {
-    erreurNom.classList.remove('hidden')
-    erreurTelephone.classList.remove('hidden')
-    return;
-  }
-    if (!/^\d+$/.test(telephone)) {
-    err.classList.remove('hidden');
-    return;
-  }
-  try {
-    await chargerDonnees();
 
-    const contact = {
-      nom: nom,
-      avatar: "M",
-      dernierMessage: "",
-      heure: "12:47",
-      nonLu: 0,
-      etat: true,
-      actus: "Mawahibou Nafih",
-      telephone: telephone,
-      brouillon: "",
-      contact: [utilisateurSauvegarde],
-      noteVocale: false,
-      messages: []
-    };
+validerGroupe.addEventListener('click',() => {
 
-    const response = await fetch(urldiscussion, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(contact)
-    });
+  changerVue('ListeGroupes')
+  Ajoutgrouppe();
+}
+);
 
-    if (!response.ok) {
-      throw new Error("Erreur lors de l'ajout du contact.");
-    }
 
-    const nouveauContact = await response.json();
 
-    const uc = data.find(c => c.id === utilisateurSauvegarde);
-    if (uc) {
-      uc.contact.push(nouveauContact.id);
 
-      await fetch(`${urldiscussion}/${uc.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(uc)
-      });
-    }
+export async function afficherCheckboxMembres() {
+  await chargerDonnees();
+    const u = data.find(r => r.id === utilisateurSauvegarde);
 
-    document.getElementById('nom').value = '';
-    document.getElementById('telephone').value = '';
+      const visible = data.filter(r => u.contact.includes(r.id));
 
-    affiche1();
 
-  } catch (error) {
-    console.error("Erreur lors de l'ajout du contact :", error);
-    alert("Une erreur s'est produite lors de l'ajout du contact. Veuillez réessayer.");
-  }
+  const checkboxMembres = document.getElementById("checkboxMembres");
+  checkboxMembres.innerHTML = '';
+  visible.forEach(contact => {
+    checkboxMembres.innerHTML += `
+      <label class="flex items-center gap-2 text-sm text-gray-700">
+        <input type="checkbox" value="${contact.id}" />
+        <span class="font-medium">${contact.nom}</span> 
+        <span class="text-xs text-gray-500">(${contact.telephone})</span>
+      </label>
+    `;
+  });
 }
 
+document.getElementById('ajouterNouveauContact').addEventListener('click',afficheMembresGroupe)

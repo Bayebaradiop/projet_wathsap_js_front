@@ -44,8 +44,10 @@
 </div>
 
   <div class="h1 fixed left-0 top-0 h-screen w-16 flex items-center justify-between flex-col bg-wa-panel z-20 hidden">
+
     <div class="flex flex-col py-4 gap-6">
       <i
+        id="btnGroupe"
         class="fas fa-users text-xl text-wa-color-icones hover:text-wa-text-primary cursor-pointer transition-colors p-2"></i>
       <i
         class="fas fa-bullseye text-xl text-wa-color-icones hover:text-wa-text-primary cursor-pointer transition-colors p-2"></i>
@@ -111,14 +113,9 @@
       </div>
 
       <!-- Chat List -->
-      <div class="flex-1 overflow-y-auto " id="listeToute">
-   
-
- 
+      <div class="flex-1 overflow-y-auto " id="listeToute"></div>
 
 
-
-      </div>
 
 
       <!-- Non Lues Section -->
@@ -171,11 +168,55 @@
 
 
 
-      <!-- Groupes Section -->
-      <div class="flex-1 overflow-y-auto hidden" id="ListeGroupes">
 
+      <!-- formulaire groupe -->
+         <div id="formGroupe" class="w-[90%] max-w-xl my-5 mx-5 bg-gray-100 rounded-lg px-6 py-8 space-y-6 hidden border border-color-jaune">
+      <h2 class="text-sm font-semibold text-center text-gray-800">Créer un Groupe</h2>
 
+      <div>
+        <label for="nomGroupe" class="block text-sm font-medium text-gray-700 mb-1">Nom du groupe</label>
+        <input id="nomGroupe" type="text" placeholder="Ex : Groupe Famille"
+          class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50">
+        <span class="erreurNomGroupe text-sm text-red-600 hidden mt-1">Le nom du groupe est requis.</span>
       </div>
+
+      <div>
+        <label for="Description" class="block text-sm font-medium text-gray-700 mb-1">Description</label>
+        <input id="Description" type="text" placeholder="Ex : Groupe pour partager en famille"
+          class="w-full p-3 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-gray-50">
+        <span class="erreurDescription text-sm text-red-600 hidden mt-1">La description est requise.</span>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Membres à ajouter</label>
+        <div id="checkboxMembres"
+          class="max-h-48 overflow-y-auto border border-gray-300 rounded-md p-3 bg-gray-50 space-y-2">
+        </div>
+        <span class="erreurMembres text-sm text-red-600 hidden mt-1">Veuillez sélectionner au moins deux membres.</span>
+      </div>
+           
+      <div class="mb-2">
+  <label class="block text-sm font-medium text-gray-700 mb-1">Ajouter un nouveau membre</label>
+  <input type="text" id="nouveauNom" placeholder="Nom du nouveau membre" class="p-2 rounded bg-color-gris-clair mb-1 w-full" />
+  <input type="text" id="nouveauTelephone" placeholder="Téléphone du nouveau membre" class="p-2 rounded bg-color-gris-clair mb-1 w-full" />
+  <button type="button" id="ajouterNouveauContact" class="bg-wa-color-icones text-white px-2 py-1 rounded text-sm mb-1">Ajouter ce membre</button>
+  <span class="text-red-500 text-xs hidden" id="erreurNouveauContact">Nom ou téléphone invalide ou déjà existant</span>
+</div>
+
+
+      <div class="flex justify-between gap-4 pt-4">
+        <button id="validerGroupe"
+          class="flex-1 bg-wa-color-icones hover:bg-green-500 text-white font-semibold py-2 rounded-md transition-all">Créer</button>
+        <button id="annulerGroupe"
+          class="flex-1 border border-red-500 text-black hover:bg-red-50 font-semibold py-2 rounded-md transition-all">Annuler</button>
+      </div>
+    </div>
+
+
+
+
+      <!-- Groupes Section -->
+      <div class="flex-1 overflow-y-auto hidden" id="ListeGroupes"></div>
 
       <!--page parametre-->
 
@@ -321,6 +362,11 @@
                 Paramètres
             </button>
         </div>
+
+
+
+  
+
 
     </div>
 
