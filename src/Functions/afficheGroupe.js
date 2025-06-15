@@ -2,34 +2,26 @@
 import { data, datag, chargerDonnees } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
 import {  idDiscussionActive} from "./discussion.js";
-
 let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 const ListeGroupes = document.getElementById('ListeGroupes');
 const messageG=document.getElementById('messageG');
-
 export let idDiscussionActiveG = null;
 export async function afficheGroupe() {
-
   try {
     await chargerDonnees();
-
     if (!utilisateurSauvegarde) {
       console.error("Aucun utilisateur connecté trouvé dans le localStorage.");
       return;
     }
-
     const visible = datag.filter(groupe =>
       groupe.membres.some(membre => membre.id === utilisateurSauvegarde )|| groupe.admin.includes(utilisateurSauvegarde)
     );
-
     if (visible.length === 0) {
       console.log("Aucun groupe visible pour l'utilisateur connecté.");
       ListeGroupes.innerHTML = `<p class="text-wa-text-secondary text-sm">Aucun groupe disponible.</p>`;
       return;
     }
-
     ListeGroupes.innerHTML = '';
-
     visible.forEach((g) => {
       ListeGroupes.innerHTML += `
         <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="messageGroupe('${g.id}')">
@@ -66,25 +58,23 @@ export function messageGroupe(idg) {
     console.error("Groupe introuvable.");
     return;
   }
-
   pourAfficherEntete(idg, datag);
-
   const membresContainer = document.getElementById('membresContainer'); 
-  membresContainer.innerHTML = ''; 
+  // membresContainer.innerHTML = ''; 
 
-  g.membres.forEach(membre => {
-    membresContainer.innerHTML += `
-      <div class="flex items-center gap-2 p-2 border-b border-gray-200">
-        <div class="w-10 h-10 rounded-full bg-wa-green flex items-center justify-center text-white font-medium">
-          ${membre.nom.charAt(0).toUpperCase()}
-        </div>
-        <div>
-          <p class="font-medium text-wa-text-primary">${membre.nom}</p>
-          <p class="text-sm text-wa-text-secondary">${membre.telephone}</p>
-        </div>
-      </div>
-    `;
-  });
+  // g.membres.forEach(membre => {
+  //   membresContainer.innerHTML += `
+  //     <div class="flex items-center gap-2 p-2 border-b border-gray-200">
+  //       <div class="w-10 h-10 rounded-full bg-wa-green flex items-center justify-center text-white font-medium">
+  //         ${membre.nom.charAt(0).toUpperCase()}
+  //       </div>
+  //       <div>
+  //         <p class="font-medium text-wa-text-primary">${membre.nom}</p>
+  //         <p class="text-sm text-wa-text-secondary">${membre.telephone}</p>
+  //       </div>
+  //     </div>
+  //   `;
+  // });
 
   g.message.forEach((gp) => {
     messagesContainer.innerHTML += `

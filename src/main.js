@@ -1,12 +1,14 @@
+import { chargerDonnees, data, datag } from "./url_api/environement.js";
 import { changerVue } from "./changementVue/changementVue.js";
-import { affiche1, utilisateurSauvegarde,afficherCheckboxMembres } from "./Functions/discussion.js";
+import { affiche1, afficherCheckboxMembres } from "./Functions/discussion.js";
 import { listeNo } from "./Functions/afficheNosLues.js";
 import { afficheGroupe } from "./Functions/afficheGroupe.js";
+import { verifierNouveauxMessages } from "./Functions/actualiseNavigateur.js";
 import './style.css';
 import { deconnexion } from "./Functions/auth.js";
-import { urldiscussion, urlgroupe} from "./url_api/environement.js";
+import { gererConnexion } from "./Functions/auth.js";
+
 let utilisateurConnecte = null;
-let data = [];
 const btnNoLues = document.getElementById('btnNoLues');
 export const listeNonLues = document.getElementById('listeNonLues');
 const btnFavoris = document.getElementById('btnFavoris');
@@ -26,15 +28,17 @@ const login = document.querySelector('.login');
 const messagesContainer = document.getElementById('messagesContainer');
 const sendButton = document.getElementById('sendButton');
 const btnLogout = document.getElementById('btnLogout');
-const form= document.getElementById('loginForm');
+const form = document.getElementById('loginForm');
 const btnAjouterContact = document.getElementById('btnAjouterContact');
-const formGroupe= document.getElementById('formGroupe');
+const formGroupe = document.getElementById('formGroupe');
 const btnGroupe = document.getElementById('btnGroupe');
+
+
 btnGroupe.addEventListener('click', async () => {
   changerVue('formGroupe');
   await afficherCheckboxMembres();
 });
-btnAjouterContact.addEventListener('click',()=>changerVue('form')); 
+btnAjouterContact.addEventListener('click', () => changerVue('form'));
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
 btnmessage.addEventListener('click', () => {
   changerVue('listeNonLues');
@@ -48,57 +52,33 @@ btnParametres.addEventListener('click', () => {
   recherche.classList.add('hidden');
   btnListe.classList.add('hidden');
 });
-btnTous.addEventListener('click', () => changerVue('listeToute'))
+btnTous.addEventListener('click', () => changerVue('listeToute'));
 
-async function chargerDonnees() {
-  try {
-    const response = await fetch(urldiscussion);
-    if (!response.ok) {
-      throw new Error(`Erreur lors du chargement des discussions : ${response.status}`);
-    }
-    data = await response.json();
-    console.log("Données chargées :", data);
-    let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-    if (utilisateurSauvegarde) {
-      utilisateurConnecte = utilisateurSauvegarde;
-      const user = data.find(c => c.id === utilisateurConnecte);
-      if (user) {
-        document.getElementById('loginForm').style.display = 'none';
-        h1.classList.remove('hidden');
-        h2.classList.remove('hidden');
-        affiche1();
-        afficheGroupe();
-        listeNo();
-          // afficherCheckboxMembres();
-      } else {
-        console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
-      }
-    }
-  } catch (error) {
-    console.error("Erreur lors du chargement des données :", error);
-    alert("Impossible de charger les données. Veuillez réessayer plus tard.");
-  }
-}
+document.getElementById('btnLogin').addEventListener('click', gererConnexion);
+btnLogout.addEventListener('click', deconnexion);
 
-document.getElementById('btnLogin').addEventListener('click', () => {
-  const tel = document.getElementById('loginTelephone').value.trim();
-  const error = document.getElementById('loginError');
-  error.classList.add('hidden');
-  if (!tel) {
-    error.textContent = "Veuillez entrer un numéro de téléphone.";
-    error.classList.remove('hidden');
-    return;
-  }
-  const user = data.find(c => c.telephone === tel);
-  if (user) {
-    utilisateurConnecte = user.id;
-    localStorage.setItem('utilisateurConnecte', utilisateurConnecte);
-    location.reload();
-  } else {
-    error.textContent = "Numéro de téléphone introuvable.";
-    error.classList.remove('hidden');
+
+
+setInterval(() => {
+  verifierNouveauxMessages();
+}, 10000);
+
+
+chargerDonnees().then(() => {
+  console.log("Données initiales chargées :", data, datag);
+  const utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
+  if (utilisateurSauvegarde) {
+    utilisateurConnecte = utilisateurSauvegarde;
+    const user = data.find(c => c.id === utilisateurConnecte);
+    if (user) {
+      document.getElementById('loginForm').style.display = 'none';
+      h1.classList.remove('hidden');
+      h2.classList.remove('hidden');
+      affiche1();
+      afficheGroupe();
+      listeNo();
+    } else {
+      console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
+    }
   }
 });
-
-btnLogout.addEventListener('click', deconnexion);
-chargerDonnees();

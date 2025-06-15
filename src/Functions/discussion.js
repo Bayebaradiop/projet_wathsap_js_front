@@ -1,18 +1,18 @@
-import { data, datag, chargerDonnees,urldiscussion,urlgroupe} from "../url_api/environement.js";
+import { data, datag, chargerDonnees, urldiscussion, urlgroupe } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
 import { changerVue } from "../changementVue/changementVue.js";
 import { envoyerMessage } from "./envoiMessage.js";
-import {listeNo} from "./afficheNosLues.js";
-import {ajouterContact } from "./ajouterContact.js";
+import { listeNo } from "./afficheNosLues.js";
+import { ajouterContact } from "./ajouterContact.js";
 import { Ajoutgrouppe } from "./AjouterGroupe.js";
-import {afficheMembresGroupe} from "./AjoutContactGroupe.js";
+import { afficheMembresGroupe } from "./AjoutContactGroupe.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 export let idDiscussionActive = null;
 console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
 
 export async function affiche1() {
-  await chargerDonnees(); 
+  await chargerDonnees();
   const u = data.find(r => r.id === utilisateurSauvegarde);
   if (!u) {
     console.error("Utilisateur introuvable pour l'ID :", utilisateurSauvegarde);
@@ -25,7 +25,8 @@ export async function affiche1() {
       <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="afficheMessages('${d.id}')">
         <div
           class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
-          BB
+                       ${d.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+
           <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-wa-sidebar"></div>
         </div>
         <div class="flex-1 min-w-0">
@@ -42,17 +43,16 @@ export async function affiche1() {
     `;
   });
 }
- export async function afficheMessages(identifiant) {
 
+export async function afficheMessages(identifiant) {
   try {
     await chargerDonnees();
-
     const contact = data.find(c => c.id === identifiant);
     if (!contact) {
       console.error("Contact introuvable.");
       return;
     }
-    pourAfficherEntete(identifiant,data);
+    pourAfficherEntete(identifiant, data);
     messagesContainer.innerHTML = "";
 
     const messages = contact.messages.filter(msg =>
@@ -67,7 +67,7 @@ export async function affiche1() {
       let check = "";
       if (msg.auteur === utilisateurSauvegarde) {
         check = msg.lu
-          ? `<span class="text-color-noir ml-2">&#10003;&#10003;</span>` 
+          ? `<span class="text-color-noir ml-2">&#10003;&#10003;</span>`
           : `<span class="text-color-noir ml-2">&#10003;</span>`;
       }
       messagesContainer.innerHTML += `
@@ -86,7 +86,7 @@ export async function affiche1() {
     input.value = contact.brouillon || "";
 
     idDiscussionActive = identifiant;
-    contact.nonLus=0;
+    contact.nonLus = 0;
     await fetch(`${urldiscussion}/${contact.id}`, {
       method: 'PUT',
       headers: {
@@ -102,31 +102,29 @@ export async function affiche1() {
     console.error("Erreur lors du chargement des discussions :", error);
   }
 }
+
+
+
+
+
 window.afficheMessages = afficheMessages;
-sendButton.addEventListener('click',envoyerMessage
+sendButton.addEventListener('click', envoyerMessage
 );
 
 const ajouter = document.getElementById('ajouter');
-const ajouterNouveauContact=document.getElementById('ajouterNouveauContact');
+const ajouterNouveauContact = document.getElementById('ajouterNouveauContact');
 ajouter.addEventListener('click', ajouterContact);
 
-validerGroupe.addEventListener('click',() => {
-
+validerGroupe.addEventListener('click', () => {
   changerVue('ListeGroupes')
   Ajoutgrouppe();
 }
 );
 
-
-
-
 export async function afficherCheckboxMembres() {
   await chargerDonnees();
-    const u = data.find(r => r.id === utilisateurSauvegarde);
-
-      const visible = data.filter(r => u.contact.includes(r.id));
-
-
+  const u = data.find(r => r.id === utilisateurSauvegarde);
+  const visible = data.filter(r => u.contact.includes(r.id));
   const checkboxMembres = document.getElementById("checkboxMembres");
   checkboxMembres.innerHTML = '';
   visible.forEach(contact => {
@@ -140,4 +138,4 @@ export async function afficherCheckboxMembres() {
   });
 }
 
-document.getElementById('ajouterNouveauContact').addEventListener('click',afficheMembresGroupe)
+document.getElementById('ajouterNouveauContact').addEventListener('click', afficheMembresGroupe)

@@ -5,21 +5,18 @@ import { afficheGroupe, idDiscussionActiveG, messageGroupe } from "./afficheGrou
 import { afficheMessages } from "./discussion.js";
 import { idDiscussionActive, utilisateurSauvegarde } from "./discussion.js";
 import { sauvegarderBrouillon } from "./messageBrouillon.js";
-
+import { listeNo } from "./afficheNosLues.js";
 export async function envoyerMessage() {
   const input = document.getElementById('messageInput');
   const texte = input.value.trim();
   if (!texte) return;
-
   const heure = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   try {
     await chargerDonnees();
-
     if (idDiscussionActiveG) {
       const groupe = datag.find(g => g.id === idDiscussionActiveG);
       const recup = data.find(d => d.id === utilisateurSauvegarde);
-
       if (groupe && recup) {
         const message = {
           texte,
@@ -29,12 +26,10 @@ export async function envoyerMessage() {
           lu: false,
           auteur: utilisateurSauvegarde
         };
-
         groupe.message.push(message);
         groupe.dernierMessage = texte;
         groupe.date = heure;
         groupe.brouillon = "";
-
         await fetch(`${urlgroupe}/${groupe.id}`, {
           method: 'PUT',
           headers: {
@@ -81,7 +76,6 @@ export async function envoyerMessage() {
           auteur: utilisateurSauvegarde,
           destinataire: contact.id
         };
-
         utilisateurConnecteObj.messages.push(messageUtilisateur);
         utilisateurConnecteObj.dernierMessage = texte;
         utilisateurConnecteObj.heure = heure;
@@ -97,18 +91,17 @@ export async function envoyerMessage() {
           contact.brouillon = "";
         afficheMessages(contact.id);
         affiche1();
+        listeNo();
       }
     } else {
       console.error("Aucun contact ou groupe actif pour envoyer le message.");
     }
-
     input.value = '';
   } catch (error) {
     console.error("Erreur lors de l'envoi du message :", error);
     alert("Erreur lors de l'envoi du message. Veuillez réessayer.");
   }
 }
-
 document.getElementById('messageInput').addEventListener('input', () => {
   sauvegarderBrouillon();
 });

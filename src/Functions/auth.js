@@ -15,3 +15,28 @@ export function deconnexion() {
   ListeGroupes.innerHTML = ''; 
   alert('Vous êtes déconnecté.');
 }
+
+
+import { data } from "../url_api/environement.js";
+
+export function gererConnexion() {
+  const tel = document.getElementById('loginTelephone').value.trim();
+  const error = document.getElementById('loginError');
+  error.classList.add('hidden');
+
+  if (!tel) {
+    error.textContent = "Veuillez entrer un numéro de téléphone.";
+    error.classList.remove('hidden');
+    return;
+  }
+
+  const user = data.find(c => c.telephone === tel);
+  if (user) {
+    const utilisateurConnecte = user.id;
+    localStorage.setItem('utilisateurConnecte', utilisateurConnecte);
+    location.reload();
+  } else {
+    error.textContent = "Numéro de téléphone introuvable.";
+    error.classList.remove('hidden');
+  }
+}

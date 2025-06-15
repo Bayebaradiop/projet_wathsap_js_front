@@ -9,10 +9,7 @@ const formGroupe = document.getElementById('formGroupe');
 const erreurNomGroupe = document.querySelector('.erreurNomGroupe');
 const erreurDesc = document.querySelector('.erreurDescription');
 const erreurMembres = document.querySelector('.erreurMembres');
-
 export async function Ajoutgrouppe() {
-    
-
   const nomGroupe = nomGroupeInput.value.trim();
   const description = descriptionInput.value.trim();
   const checkboxes = document.querySelectorAll('#checkboxMembres input[type="checkbox"]:checked');
@@ -62,8 +59,6 @@ export async function Ajoutgrouppe() {
       etat: true,
       admin: [utilisateurSauvegarde] 
     };
-
-    
     const response = await fetch(urlgroupe, {
       method: 'POST',
       headers: {
@@ -71,19 +66,14 @@ export async function Ajoutgrouppe() {
       },
       body: JSON.stringify(nouveauGroupe)
     });
-
     if (!response.ok) {
       throw new Error("Erreur lors de l'ajout du groupe.");
     }
-
     nomGroupeInput.value = '';
     descriptionInput.value = '';
     checkboxes.forEach(cb => cb.checked = false);
-
     formGroupe.classList.add('hidden');
-
     afficheGroupe();
-
   } catch (error) {
     console.error("Erreur lors de l'ajout du groupe :", error);
     alert("Une erreur s'est produite lors de l'ajout du groupe. Veuillez réessayer.");

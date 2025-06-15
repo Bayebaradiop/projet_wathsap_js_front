@@ -17,7 +17,7 @@ import {listeNonLues} from "../main.js";
           <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="afficheMessages('${d.id}')">
             <div
               class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
-              BB
+                       ${d.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
               <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-wa-sidebar"></div>
             </div>
             <div class="flex-1 min-w-0">
@@ -27,12 +27,11 @@ import {listeNonLues} from "../main.js";
               </div>
               <div class="flex justify-between items-center">
                 <p class="text-wa-text-secondary text-sm truncate">${d.dernierMessage}</p>
-                <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">2</span>
+                <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">${d.nonLus}</span>
               </div>
             </div>
           </div>
         `;
       });
-
 }
 
