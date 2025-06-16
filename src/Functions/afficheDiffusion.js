@@ -52,6 +52,8 @@ export async function afficheDiffusion() {
 
   ListeDiffusion.innerHTML += `
     <span class="error-message text-red-500 hidden">Veuillez sélectionner au moins un contact</span>
+        <span class="valide-message text-green-500 hidden">Veuillez sélectionner au moins un contact</span>
+
     <div class="flex justify-center mb-8">
       <button id="envoyerDiffusion" class="bg-wa-green text-white px-4 py-2 rounded">Envoyer</button>
     </div>
@@ -72,7 +74,7 @@ async function envoyerDiffusion() {
 
   if (!texte) {
     const errorMessage = document.querySelector('.error-message');
-        errorMessage.textContent = "Le message ne peut pas être vide.";
+    errorMessage.textContent = "Le message ne peut pas être vide.";
     errorMessage.classList.remove('hidden');
     return;
   }
@@ -111,6 +113,8 @@ async function envoyerDiffusion() {
       contact.dernierMessage = texte;
       contact.heure = heure;
 
+      utilisateurConnecteObj.nonLus = (utilisateurConnecteObj.nonLus || 0) + 1;
+
       fetch(`${urldiscussion}/${contact.id}`, {
         method: 'PUT',
         headers: {
@@ -124,7 +128,6 @@ async function envoyerDiffusion() {
   messageInput.value = '';
   document.querySelectorAll('.select-diffusion').forEach(checkbox => checkbox.checked = false);
 
-  alert("Message envoyé avec succès !");
   afficheDiffusion();
   affiche1();
 }
