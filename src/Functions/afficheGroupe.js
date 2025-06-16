@@ -1,11 +1,13 @@
 
 import { data, datag, chargerDonnees } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
-import {  idDiscussionActive} from "./discussion.js";
+import { idDiscussionActive } from "./discussion.js";
 let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 const ListeGroupes = document.getElementById('ListeGroupes');
-const messageG=document.getElementById('messageG');
+const messageG = document.getElementById('messageG');
 export let idDiscussionActiveG = null;
+import {afficherAjoutMembre} from "./ajoutMembreGroupe.js";
+
 export async function afficheGroupe() {
   try {
     await chargerDonnees();
@@ -14,7 +16,7 @@ export async function afficheGroupe() {
       return;
     }
     const visible = datag.filter(groupe =>
-      groupe.membres.some(membre => membre.id === utilisateurSauvegarde )|| groupe.admin.includes(utilisateurSauvegarde)
+      groupe.membres.some(membre => membre.id === utilisateurSauvegarde) || groupe.admin.includes(utilisateurSauvegarde)
     );
     if (visible.length === 0) {
       console.log("Aucun groupe visible pour l'utilisateur connecté.");
@@ -23,6 +25,8 @@ export async function afficheGroupe() {
     }
     ListeGroupes.innerHTML = '';
     visible.forEach((g) => {
+      const estAdmin = g.admin.includes(utilisateurSauvegarde); 
+
       ListeGroupes.innerHTML += `
         <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="messageGroupe('${g.id}')">
           <div
@@ -40,9 +44,19 @@ export async function afficheGroupe() {
               ${g.nonLus > 0 ? `<span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">${g.nonLus}</span>` : ''}
             </div>
           </div>
+          ${estAdmin ? `<button class="text-xs m-3 text-blue-500 underline ajouter-membre" data-id="${g.id}">+</button>` : ''}
         </div>
       `;
     });
+
+    document.querySelectorAll('.ajouter-membre').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idGroupe = btn.dataset.id;
+        afficherAjoutMembre(idGroupe);
+      });
+    });
+
   } catch (error) {
     console.error("Erreur lors de l'affichage des groupes :", error);
     ListeGroupes.innerHTML = `<p class="text-wa-text-secondary text-sm">Erreur lors du chargement des groupes.</p>`;
@@ -59,22 +73,7 @@ export function messageGroupe(idg) {
     return;
   }
   pourAfficherEntete(idg, datag);
-  const membresContainer = document.getElementById('membresContainer'); 
-  // membresContainer.innerHTML = ''; 
-
-  // g.membres.forEach(membre => {
-  //   membresContainer.innerHTML += `
-  //     <div class="flex items-center gap-2 p-2 border-b border-gray-200">
-  //       <div class="w-10 h-10 rounded-full bg-wa-green flex items-center justify-center text-white font-medium">
-  //         ${membre.nom.charAt(0).toUpperCase()}
-  //       </div>
-  //       <div>
-  //         <p class="font-medium text-wa-text-primary">${membre.nom}</p>
-  //         <p class="text-sm text-wa-text-secondary">${membre.telephone}</p>
-  //       </div>
-  //     </div>
-  //   `;
-  // });
+  const membresContainer = document.getElementById('membresContainer');
 
   g.message.forEach((gp) => {
     messagesContainer.innerHTML += `
@@ -91,6 +90,6 @@ export function messageGroupe(idg) {
   idDiscussionActiveG = idg;
 }
 window.messageGroupe = messageGroupe;
-window.messageGroupe=messageGroupe
+window.messageGroupe = messageGroupe
 
 

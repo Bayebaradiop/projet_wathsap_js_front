@@ -3,10 +3,6 @@ export function estNumeroUnique(telephone, tableauContacts) {
   return tableauContacts.find(contact => contact.telephone === telephone) || null;
 }
 
-
-
-
-
 export function genererNomUnique(baseNom, tableauContacts) {
   let compteur = 0;
 

@@ -2,6 +2,7 @@
 import { chargerDonnees, data,urlgroupe} from "../url_api/environement.js";
 import { afficheGroupe } from "./afficheGroupe.js";
 import { utilisateurSauvegarde } from "./discussion.js";
+import { changerVue } from "../changementVue/changementVue.js";
 
 const descriptionInput = document.getElementById('Description');
 const nomGroupeInput = document.getElementById('nomGroupe');
@@ -74,6 +75,8 @@ export async function Ajoutgrouppe() {
     checkboxes.forEach(cb => cb.checked = false);
     formGroupe.classList.add('hidden');
     afficheGroupe();
+      changerVue('ListeGroupes')
+
   } catch (error) {
     console.error("Erreur lors de l'ajout du groupe :", error);
     alert("Une erreur s'est produite lors de l'ajout du groupe. Veuillez réessayer.");

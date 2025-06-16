@@ -1,6 +1,5 @@
 import { data, datag, chargerDonnees, urldiscussion, urlgroupe } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
-import { changerVue } from "../changementVue/changementVue.js";
 import { envoyerMessage } from "./envoiMessage.js";
 import { listeNo } from "./afficheNosLues.js";
 import { ajouterContact } from "./ajouterContact.js";
@@ -116,7 +115,7 @@ const ajouterNouveauContact = document.getElementById('ajouterNouveauContact');
 ajouter.addEventListener('click', ajouterContact);
 
 validerGroupe.addEventListener('click', () => {
-  changerVue('ListeGroupes')
+  // changerVue('ListeGroupes')
   Ajoutgrouppe();
 }
 );
