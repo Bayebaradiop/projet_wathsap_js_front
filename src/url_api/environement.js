@@ -1,8 +1,8 @@
-export const urldiscussion='http://localhost:3000/discussions';
-export const urlgroupe='http://localhost:3000/groupes';
+// export const urldiscussion='http://localhost:3000/discussions';
+// export const urlgroupe='http://localhost:3000/groupes';
 
-// export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
-// export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
+export const urldiscussion = 'https://projet-wathsap-js-backend-1.onrender.com/discussions';
+export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/groupes';
 
     let data = [];
     let datag = [];

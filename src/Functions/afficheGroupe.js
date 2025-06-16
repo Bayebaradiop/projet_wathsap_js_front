@@ -6,13 +6,11 @@ let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 const ListeGroupes = document.getElementById('ListeGroupes');
 const messageG = document.getElementById('messageG');
 import {afficherAjoutMembre} from "./ajoutMembreGroupe.js";
-
 let idDiscussionActiveG = null;
 
 export function setIdDiscussionActiveG(id) {
   idDiscussionActiveG = id;
 }
-
 export function getIdDiscussionActiveG() {
   return idDiscussionActiveG;
 }
@@ -72,15 +70,11 @@ export async function afficheGroupe() {
   }
 }
 
-
 export function messageGroupe(idg) {
   setIdDiscussionActive(null); 
   setIdDiscussionActiveG(idg); 
-
   chargerDonnees();
-
   messagesContainer.innerHTML = '';
-
   const g = datag.find(g => g.id === idg);
   if (!g) {
     console.error("Groupe introuvable.");
@@ -88,7 +82,6 @@ export function messageGroupe(idg) {
   }
   pourAfficherEntete(idg, datag);
   const membresContainer = document.getElementById('membresContainer');
-
   g.message.forEach((gp) => {
     messagesContainer.innerHTML += `
       <div class="flex justify-end mb-2">
@@ -103,5 +96,3 @@ export function messageGroupe(idg) {
 }
 window.messageGroupe = messageGroupe;
 window.messageGroupe = messageGroupe
-
-
