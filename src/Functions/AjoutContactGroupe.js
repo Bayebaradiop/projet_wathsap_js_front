@@ -1,7 +1,8 @@
 import { chargerDonnees, data,urlgroupe,urldiscussion} from "../url_api/environement.js";
 import { affiche1, afficherCheckboxMembres } from "./discussion.js";
-import { utilisateurSauvegarde ,idDiscussionActive} from "./discussion.js";
-
+import { utilisateurSauvegarde} from "./discussion.js";
+import { getIdDiscussionActive } from "./discussion.js";
+import { getIdDiscussionActiveG } from "./afficheGroupe.js";
 
 
 

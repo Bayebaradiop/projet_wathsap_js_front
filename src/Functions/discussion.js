@@ -2,13 +2,26 @@ import { data, datag, chargerDonnees, urldiscussion, urlgroupe } from "../url_ap
 import { pourAfficherEntete } from "./afficheEntete.js";
 import { envoyerMessage } from "./envoiMessage.js";
 import { listeNo } from "./afficheNosLues.js";
+import { getIdDiscussionActiveG, setIdDiscussionActiveG } from "./afficheGroupe.js";
 import { ajouterContact } from "./ajouterContact.js";
 import { Ajoutgrouppe } from "./AjouterGroupe.js";
 import { afficheMembresGroupe } from "./AjoutContactGroupe.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-export let idDiscussionActive = null;
+
+
+let idDiscussionActive = null;
+
+export function setIdDiscussionActive(id) {
+  idDiscussionActive = id;
+}
+
+export function getIdDiscussionActive() {
+  return idDiscussionActive;
+}
 console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
+
+
 
 export async function affiche1() {
   await chargerDonnees();
@@ -43,6 +56,7 @@ export async function affiche1() {
   });
 }
 
+
 export async function afficheMessages(identifiant) {
   try {
     await chargerDonnees();
@@ -51,6 +65,10 @@ export async function afficheMessages(identifiant) {
       console.error("Contact introuvable.");
       return;
     }
+
+    // Réinitialiser l'ID du groupe actif
+    setIdDiscussionActiveG(null);
+
     pourAfficherEntete(identifiant, data);
     messagesContainer.innerHTML = "";
 
@@ -84,7 +102,7 @@ export async function afficheMessages(identifiant) {
     const input = document.getElementById('messageInput');
     input.value = contact.brouillon || "";
 
-    idDiscussionActive = identifiant;
+    setIdDiscussionActive(identifiant); // Définir l'ID actif pour le contact
     contact.nonLus = 0;
     await fetch(`${urldiscussion}/${contact.id}`, {
       method: 'PUT',
@@ -101,8 +119,6 @@ export async function afficheMessages(identifiant) {
     console.error("Erreur lors du chargement des discussions :", error);
   }
 }
-
-
 
 
 

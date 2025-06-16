@@ -1,5 +1,5 @@
 import { data, datag, chargerDonnees, urlgroupe } from '../url_api/environement.js';
-import { afficheGroupe } from './afficheGroupe.js';
+import { afficheGroupe ,messageGroupe} from './afficheGroupe.js';
 import { afficheMessages, utilisateurSauvegarde } from './discussion.js';
 
 export async function afficherAjoutMembre(idGroupe) {
@@ -72,6 +72,7 @@ export async function afficherAjoutMembre(idGroupe) {
 
     popup.remove();
     afficheGroupe(); 
+    messageGroupe(idGroupe);
     afficheMessages(idGroupe);
   });
 }

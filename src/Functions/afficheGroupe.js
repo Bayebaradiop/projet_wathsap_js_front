@@ -1,12 +1,21 @@
 
 import { data, datag, chargerDonnees } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
-import { idDiscussionActive } from "./discussion.js";
+import { getIdDiscussionActive, setIdDiscussionActive } from "./discussion.js";
 let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
 const ListeGroupes = document.getElementById('ListeGroupes');
 const messageG = document.getElementById('messageG');
-export let idDiscussionActiveG = null;
 import {afficherAjoutMembre} from "./ajoutMembreGroupe.js";
+
+let idDiscussionActiveG = null;
+
+export function setIdDiscussionActiveG(id) {
+  idDiscussionActiveG = id;
+}
+
+export function getIdDiscussionActiveG() {
+  return idDiscussionActiveG;
+}
 
 export async function afficheGroupe() {
   try {
@@ -62,7 +71,12 @@ export async function afficheGroupe() {
     ListeGroupes.innerHTML = `<p class="text-wa-text-secondary text-sm">Erreur lors du chargement des groupes.</p>`;
   }
 }
+
+
 export function messageGroupe(idg) {
+  setIdDiscussionActive(null); 
+  setIdDiscussionActiveG(idg); 
+
   chargerDonnees();
 
   messagesContainer.innerHTML = '';
@@ -78,7 +92,7 @@ export function messageGroupe(idg) {
   g.message.forEach((gp) => {
     messagesContainer.innerHTML += `
       <div class="flex justify-end mb-2">
-        <div class="max-w-xs lg:max-w-md px-4 py-2 rounded-lg bg-wa-message-out text-white">
+        <div class="max-w-xs lg-max-w-md px-4 py-2 rounded-lg bg-wa-message-out text-white">
           <h2 class="text-sm mb-2">${gp.nom}</h2>
           <p class="text-sm">${gp.texte}</p>
           <p class="text-xs text-green-200 mt-1">${gp.heure}</p>
@@ -86,8 +100,6 @@ export function messageGroupe(idg) {
       </div> 
     `;
   });
-
-  idDiscussionActiveG = idg;
 }
 window.messageGroupe = messageGroupe;
 window.messageGroupe = messageGroupe

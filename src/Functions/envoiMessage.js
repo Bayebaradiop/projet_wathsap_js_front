@@ -1,11 +1,13 @@
 
 import { data, datag, urldiscussion, urlgroupe, chargerDonnees } from "../url_api/environement.js";
 import { affiche1 } from "./discussion.js";
-import { afficheGroupe, idDiscussionActiveG, messageGroupe } from "./afficheGroupe.js";
+import { afficheGroupe,  messageGroupe } from "./afficheGroupe.js";
 import { afficheMessages } from "./discussion.js";
-import { idDiscussionActive, utilisateurSauvegarde } from "./discussion.js";
+import {  utilisateurSauvegarde } from "./discussion.js";
 import { sauvegarderBrouillon } from "./messageBrouillon.js";
 import { listeNo } from "./afficheNosLues.js";
+import { getIdDiscussionActive } from "./discussion.js";
+import { getIdDiscussionActiveG } from "./afficheGroupe.js";
 export async function envoyerMessage() {
   const input = document.getElementById('messageInput');
   const texte = input.value.trim();
@@ -14,8 +16,8 @@ export async function envoyerMessage() {
 
   try {
     await chargerDonnees();
-    if (idDiscussionActiveG) {
-      const groupe = datag.find(g => g.id === idDiscussionActiveG);
+    if (getIdDiscussionActiveG()) {
+      const groupe = datag.find(g => g.id === getIdDiscussionActiveG());
       const recup = data.find(d => d.id === utilisateurSauvegarde);
       if (groupe && recup) {
         const message = {
@@ -42,8 +44,8 @@ export async function envoyerMessage() {
         afficheGroupe();
       }
     }
-    else if (idDiscussionActive) {
-      const contact = data.find(c => c.id === idDiscussionActive);
+    else if (getIdDiscussionActive()) {
+      const contact = data.find(c => c.id === getIdDiscussionActive());
       const utilisateurConnecteObj = data.find(c => c.id === utilisateurSauvegarde);
 
       if (contact && utilisateurConnecteObj) {
