@@ -4,7 +4,7 @@ export function changerVue(vue) {
  
     ListeGroupes: ListeGroupes,
     listeNonLues: listeNonLues,
-    listeFavoris: listeFavoris,
+    ListeDiffusion: ListeDiffusion,
     pageParametres: pageParametres,
     listeToute,
     form: form,

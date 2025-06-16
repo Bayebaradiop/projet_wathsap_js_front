@@ -66,7 +66,6 @@ export async function afficheMessages(identifiant) {
       return;
     }
 
-    // Réinitialiser l'ID du groupe actif
     setIdDiscussionActiveG(null);
 
     pourAfficherEntete(identifiant, data);
@@ -102,7 +101,7 @@ export async function afficheMessages(identifiant) {
     const input = document.getElementById('messageInput');
     input.value = contact.brouillon || "";
 
-    setIdDiscussionActive(identifiant); // Définir l'ID actif pour le contact
+    setIdDiscussionActive(identifiant); 
     contact.nonLus = 0;
     await fetch(`${urldiscussion}/${contact.id}`, {
       method: 'PUT',
@@ -131,7 +130,6 @@ const ajouterNouveauContact = document.getElementById('ajouterNouveauContact');
 ajouter.addEventListener('click', ajouterContact);
 
 validerGroupe.addEventListener('click', () => {
-  // changerVue('ListeGroupes')
   Ajoutgrouppe();
 }
 );

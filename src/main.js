@@ -7,12 +7,13 @@ import { verifierNouveauxMessages } from "./Functions/actualiseNavigateur.js";
 import './style.css';
 import { deconnexion } from "./Functions/auth.js";
 import { gererConnexion } from "./Functions/auth.js";
+import { afficheDiffusion} from "./Functions/afficheDiffusion.js";
 
 let utilisateurConnecte = null;
 const btnNoLues = document.getElementById('btnNoLues');
 export const listeNonLues = document.getElementById('listeNonLues');
 const btnFavoris = document.getElementById('btnFavoris');
-const listeFavoris = document.getElementById('listeFavoris');
+const ListeDiffusion = document.getElementById('ListeDiffusion');
 const ListeGroupes = document.getElementById('ListeGroupes');
 const btnGroupes = document.getElementById('btnGroupes');
 const pageParametres = document.getElementById('pageParametres');
@@ -45,7 +46,7 @@ btnmessage.addEventListener('click', () => {
   recherche.classList.remove('hidden');
   btnListe.classList.remove('hidden');
 });
-btnFavoris.addEventListener('click', () => changerVue('listeFavoris'));
+btnFavoris.addEventListener('click', () => changerVue('ListeDiffusion'));
 btnGroupes.addEventListener('click', () => changerVue('ListeGroupes'));
 btnParametres.addEventListener('click', () => {
   changerVue('pageParametres');
@@ -77,6 +78,7 @@ chargerDonnees().then(() => {
       affiche1();
       afficheGroupe();
       listeNo();
+      afficheDiffusion();
     } else {
       console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
     }
