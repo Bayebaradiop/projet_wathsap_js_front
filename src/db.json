@@ -535,7 +535,7 @@
       "dernierMessage": "teste increment",
       "heure": "11:57",
       "nonLus": 0,
-      "etat": true,
+      "etat": false,
       "brouillon": "teste increment",
       "contact": [
         "06a2",
@@ -837,30 +837,6 @@
           "lu": true,
           "auteur": "28e2",
           "destinataire": "06a2"
-        },
-        {
-          "texte": "ff",
-          "heure": "19:36",
-          "envoye": true,
-          "lu": false,
-          "auteur": "06a2",
-          "destinataire": "28e2"
-        },
-        {
-          "texte": "d",
-          "heure": "19:44",
-          "envoye": true,
-          "lu": false,
-          "auteur": "06a2",
-          "destinataire": "28e2"
-        },
-        {
-          "texte": "cc",
-          "heure": "19:44",
-          "envoye": true,
-          "lu": false,
-          "auteur": "06a2",
-          "destinataire": "28e2"
         },
         {
           "texte": "tt",
@@ -1227,41 +1203,6 @@
         "06a2"
       ],
       "brouillon": ""
-    },
-    {
-      "id": "1275",
-      "nom": "32",
-      "avatar": "M",
-      "dernierMessage": "beger",
-      "date": "02:54",
-      "nonLus": 0,
-      "etat": true,
-      "actus": "Mawahibou Nafih",
-      "telephone": "32",
-      "brouillon": "",
-      "contact": [
-        "06a2"
-      ],
-      "noteVocale": false,
-      "messages": [
-        {
-          "texte": "gayii",
-          "heure": "11:53",
-          "envoye": true,
-          "lu": false,
-          "auteur": "06a2",
-          "destinataire": "1275"
-        },
-        {
-          "texte": "beger",
-          "heure": "11:53",
-          "envoye": true,
-          "lu": false,
-          "auteur": "06a2",
-          "destinataire": "1275"
-        }
-      ],
-      "heure": "11:53"
     }
   ],
   "groupes": [

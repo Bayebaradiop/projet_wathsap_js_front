@@ -6,6 +6,7 @@ export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/group
 
     let data = [];
     let datag = [];
+
     export async function chargerDonnees() {
       try {
         const discussionsResponse = await fetch(urldiscussion);
@@ -18,4 +19,4 @@ export const urlgroupe = 'https://projet-wathsap-js-backend-1.onrender.com/group
         console.error("Erreur lors du chargement des données :", error);
       }
     }
-    export {data,datag};
+    export { data, datag };

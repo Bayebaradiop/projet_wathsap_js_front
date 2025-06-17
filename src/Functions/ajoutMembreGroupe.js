@@ -1,6 +1,8 @@
 import { data, datag, chargerDonnees, urlgroupe } from '../url_api/environement.js';
 import { afficheGroupe ,messageGroupe} from './afficheGroupe.js';
-import { afficheMessages, utilisateurSauvegarde } from './discussion.js';
+import {  utilisateurSauvegarde } from './discussion.js';
+import { afficheMessages} from './afficheMessageContact.js';
+
 
 export async function afficherAjoutMembre(idGroupe) {
   await chargerDonnees();

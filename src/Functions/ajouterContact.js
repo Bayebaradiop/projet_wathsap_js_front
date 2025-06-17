@@ -43,30 +43,40 @@ export async function ajouterContact() {
 
   const nomUnique = genererNomUnique(nom, contactsUtilisateur);
 
+  // Mise à jour optimiste
+  const contactTemporaire = {
+    id: `temp-${Date.now()}`, // ID temporaire unique
+    nom: nomUnique,
+    avatar: "M",
+    dernierMessage: "",
+    date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    nonLus: 0,
+    etat: true,
+    actus: "Mawahibou Nafih",
+    telephone: telephone,
+    brouillon: "",
+    contact: [utilisateurSauvegarde],
+    noteVocale: false,
+    messages: []
+  };
+
+  // Ajouter le contact temporaire à l'interface utilisateur
+  uc.contact.push(contactTemporaire.id);
+  data.push(contactTemporaire);
+  affiche1();
+
+  // Réinitialiser les champs du formulaire
+  document.getElementById('nom').value = '';
+  document.getElementById('telephone').value = '';
+
   try {
-    await chargerDonnees();
-
-    const contact = {
-      nom: nomUnique,
-      avatar: "M",
-      dernierMessage: "",
-      date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      nonLus: 0,
-      etat: true,
-      actus: "Mawahibou Nafih",
-      telephone: telephone,
-      brouillon: "",
-      contact: [utilisateurSauvegarde],
-      noteVocale: false,
-      messages: []
-    };
-
+    // Envoyer la requête au serveur
     const response = await fetch(urldiscussion, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(contact)
+      body: JSON.stringify(contactTemporaire)
     });
 
     if (!response.ok) {
@@ -75,22 +85,25 @@ export async function ajouterContact() {
 
     const nouveauContact = await response.json();
 
-    if (uc) {
-      uc.contact.push(nouveauContact.id);
-
-      await fetch(`${urldiscussion}/${uc.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(uc)
-      });
+    // Remplacer l'ID temporaire par l'ID réel
+    const indexTemp = uc.contact.indexOf(contactTemporaire.id);
+    if (indexTemp !== -1) {
+      uc.contact[indexTemp] = nouveauContact.id;
     }
 
-    document.getElementById('nom').value = '';
-    document.getElementById('telephone').value = '';
+    const indexData = data.findIndex(c => c.id === contactTemporaire.id);
+    if (indexData !== -1) {
+      data[indexData] = nouveauContact;
+    }
 
-    affiche1();
+    // Mettre à jour l'utilisateur connecté sur le serveur
+    await fetch(`${urldiscussion}/${uc.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(uc)
+    });
 
   } catch (error) {
     console.error("Erreur lors de l'ajout du contact :", error);

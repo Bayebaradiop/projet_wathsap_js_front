@@ -7,7 +7,8 @@ import { ajouterContact } from "./ajouterContact.js";
 import { Ajoutgrouppe } from "./AjouterGroupe.js";
 import { afficheMembresGroupe } from "./AjoutContactGroupe.js";
 export let utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
-
+import {supprimerContact} from "./supprimer.js";
+import { afficheMessages } from "./afficheMessageContact.js"; // Import de la fonction déplacée
 
 let idDiscussionActive = null;
 
@@ -20,7 +21,6 @@ export function getIdDiscussionActive() {
 }
 console.log("Données des discussions :", data);
 console.log("Données des groupes :", datag);
-
 
 
 export async function affiche1() {
@@ -37,8 +37,7 @@ export async function affiche1() {
       <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors chat-item" onclick="afficheMessages('${d.id}')">
         <div
           class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
-                       ${d.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
-
+          ${d.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
           <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-wa-sidebar"></div>
         </div>
         <div class="flex-1 min-w-0">
@@ -51,74 +50,20 @@ export async function affiche1() {
             <span class="bg-wa-green text-white text-xs rounded-full px-2 py-1 ml-2">${d.nonLus}</span>
           </div>
         </div>
+         <button class="delete-contact bg-red-500 text-white px-3 py-1 ml-3 mt-5 rounded text-xs" data-id="${d.id}">S</button>
+
       </div>
+
     `;
   });
-}
 
-
-export async function afficheMessages(identifiant) {
-  try {
-    await chargerDonnees();
-    const contact = data.find(c => c.id === identifiant);
-    if (!contact) {
-      console.error("Contact introuvable.");
-      return;
-    }
-
-    setIdDiscussionActiveG(null);
-
-    pourAfficherEntete(identifiant, data);
-    messagesContainer.innerHTML = "";
-
-    const messages = contact.messages.filter(msg =>
-      (msg.auteur === utilisateurSauvegarde && msg.destinataire === contact.id) ||
-      (msg.auteur === contact.id && msg.destinataire === utilisateurSauvegarde)
-    );
-    messages.forEach(msg => {
-      const align = msg.auteur === utilisateurSauvegarde ? "justify-end" : "justify-start";
-      const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-white text-color-text";
-      const radius = msg.auteur === utilisateurSauvegarde ? "rounded-tr-full rounded-l-full" : "rounded-tl-full rounded-r-full";
-
-      let check = "";
-      if (msg.auteur === utilisateurSauvegarde) {
-        check = msg.lu
-          ? `<span class="text-color-noir ml-2">&#10003;&#10003;</span>`
-          : `<span class="text-color-noir ml-2">&#10003;</span>`;
-      }
-      messagesContainer.innerHTML += `
-        <div class="flex ${align} mb-2">
-          <div class="${bgColor} max-w-xs px-3 py-2 ${radius}">
-            <div class="text-sm">${msg.texte}</div>
-            <div class="text-xs opacity-70 mt-1 text-right">
-              ${msg.heure} ${check}
-            </div>
-          </div>
-        </div>
-      `;
+  document.querySelectorAll('.delete-contact').forEach(button => {
+    button.addEventListener('click', async (event) => {
+      const contactId = event.target.dataset.id;
+      await supprimerContact(contactId);
     });
-
-    const input = document.getElementById('messageInput');
-    input.value = contact.brouillon || "";
-
-    setIdDiscussionActive(identifiant); 
-    contact.nonLus = 0;
-    await fetch(`${urldiscussion}/${contact.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(contact)
-    });
-
-    listeNo();
-    affiche1();
-
-  } catch (error) {
-    console.error("Erreur lors du chargement des discussions :", error);
-  }
+  });
 }
-
 
 
 window.afficheMessages = afficheMessages;
@@ -153,3 +98,8 @@ export async function afficherCheckboxMembres() {
 }
 
 document.getElementById('ajouterNouveauContact').addEventListener('click', afficheMembresGroupe)
+
+
+
+
+

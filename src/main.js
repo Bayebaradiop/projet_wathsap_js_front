@@ -64,7 +64,7 @@ btnLogout.addEventListener('click', deconnexion);
 
 setInterval(() => {
   verifierNouveauxMessages();
-}, 10000);
+}, 1000);
 
 
 chargerDonnees().then(() => {

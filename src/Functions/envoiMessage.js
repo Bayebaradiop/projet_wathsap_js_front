@@ -1,7 +1,7 @@
 import { data, datag, urldiscussion, urlgroupe, chargerDonnees } from "../url_api/environement.js";
 import { affiche1 } from "./discussion.js";
 import { afficheGroupe, messageGroupe } from "./afficheGroupe.js";
-import { afficheMessages } from "./discussion.js";
+import { afficheMessages} from './afficheMessageContact.js';
 import { utilisateurSauvegarde } from "./discussion.js";
 import { sauvegarderBrouillon } from "./messageBrouillon.js";
 import { listeNo } from "./afficheNosLues.js";
@@ -151,7 +151,6 @@ recordButton.addEventListener('click', async () => {
   }
 });
 
-// Fonction pour arrêter l'enregistrement et envoyer l'audio
 sendAudioButton.addEventListener('click', async () => {
   if (mediaRecorder && mediaRecorder.state !== 'inactive') {
     mediaRecorder.stop();

@@ -52,7 +52,7 @@ export async function afficheGroupe() {
             </div>
           </div>
           ${estAdmin ? `<button class="text-xs m-3 text-blue-500 underline ajouter-membre" data-id="${g.id}">+</button>` : ''}
-        </div>
+        </div>  
       `;
     });
 
