@@ -1,6 +1,7 @@
-import { data, chargerDonnees,urldiscussion } from "../url_api/environement.js";
+import { changerVue } from "../changementVue/changementVue.js";
+import { data, chargerDonnees, urldiscussion } from "../url_api/environement.js";
 import { utilisateurSauvegarde } from "./discussion.js";
-import {envoyerDiffusion} from "./messageDiffusion.js";
+import { envoyerDiffusion } from "./messageDiffusion.js";
 
 export async function afficheDiffusion() {
   const ListeDiffusion = document.getElementById('ListeDiffusion');
@@ -52,7 +53,8 @@ export async function afficheDiffusion() {
 
   ListeDiffusion.innerHTML += `
     <span class="error-message text-red-500 hidden">Veuillez sélectionner au moins un contact</span>
-        <span class="valide-message text-green-500 hidden">Veuillez sélectionner au moins un contact</span>
+    <span class="valide-message text-green-500 hidden">Message envoyé avec succès !</span>
+    <span class="loading-message text-blue-500 hidden">Envoi en cours...</span>
 
     <div class="flex justify-center mb-8">
       <button id="envoyerDiffusion" class="bg-wa-green text-white px-4 py-2 rounded">Envoyer</button>
@@ -61,9 +63,28 @@ export async function afficheDiffusion() {
 
   const btnEnvoyer = document.getElementById('envoyerDiffusion');
   if (btnEnvoyer) {
-    btnEnvoyer.addEventListener('click', envoyerDiffusion);
+    btnEnvoyer.addEventListener('click', async () => {
+      const loadingMessage = document.querySelector('.loading-message');
+      const valideMessage = document.querySelector('.valide-message');
+      const errorMessage = document.querySelector('.error-message');
+
+      loadingMessage.classList.remove('hidden');
+      btnEnvoyer.disabled = true;
+
+      try {
+        await envoyerDiffusion();
+        loadingMessage.classList.add('hidden');
+        valideMessage.classList.remove('hidden');
+      } catch (error) {
+        loadingMessage.classList.add('hidden');
+        errorMessage.classList.remove('hidden');
+      } finally {
+        btnEnvoyer.disabled = false;
+      }
+
+      changerVue('listeToute');
+    });
   } else {
     console.error("Bouton envoyerDiffusion introuvable.");
   }
 }
-

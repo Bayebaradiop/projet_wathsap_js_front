@@ -9,6 +9,7 @@ export function changerVue(vue) {
     listeToute,
     form: form,
     formGroupe: formGroupe,
+    ListeArchive: ListeArchive
   };
 
   Object.values(sections).forEach(section => section.classList.add('hidden'));

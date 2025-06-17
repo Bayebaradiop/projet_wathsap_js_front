@@ -33,12 +33,14 @@ const form = document.getElementById('loginForm');
 const btnAjouterContact = document.getElementById('btnAjouterContact');
 const formGroupe = document.getElementById('formGroupe');
 const btnGroupe = document.getElementById('btnGroupe');
-
+const ListeArchive=document.getElementById('ListeArchive');
+const btnArchive=document.getElementById('btnArchive');
 
 btnGroupe.addEventListener('click', async () => {
   changerVue('formGroupe');
   await afficherCheckboxMembres();
 });
+btnArchive.addEventListener('click', () => changerVue('ListeArchive'));
 btnAjouterContact.addEventListener('click', () => changerVue('form'));
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
 btnmessage.addEventListener('click', () => {
