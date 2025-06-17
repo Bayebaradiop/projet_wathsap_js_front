@@ -122,6 +122,7 @@ export async function afficheMessages(identifiant) {
 
 
 window.afficheMessages = afficheMessages;
+
 sendButton.addEventListener('click', envoyerMessage
 );
 

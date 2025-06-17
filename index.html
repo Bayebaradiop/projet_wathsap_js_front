@@ -136,7 +136,7 @@
       </div>
 
         <div class="flex-1 overflow-y-auto hidden" id="ListeArchive">
-        <h1>Liste des Archives</h1> 
+
       </div>
 
 <!-- Ajouter Contact Form -->
@@ -466,6 +466,12 @@
           <button id="sendButton"   type="submit"  class="w-12 h-12 bg-wa-green hover:bg-wa-green-dark rounded-full flex items-center justify-center transition-colors">
             <i class="fas fa-paper-plane text-white text-sm"></i>
           </button>
+          
+          <div class="flex items-center gap-4">
+  <button id="recordButton" class="bg-teal-500 text-white px-4 py-2 rounded">🎙️ Enregistrer</button>
+  <button id="sendAudioButton" class="bg-teal-500 text-white px-4 py-2 rounded hidden">Envoyer</button>
+  <span id="recordingIndicator" class="hidden text-red-500">Enregistrement...</span>
+</div>
         </div>
       </div>
     </main>
