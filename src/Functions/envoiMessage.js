@@ -7,6 +7,7 @@ import { sauvegarderBrouillon } from "./messageBrouillon.js";
 import { listeNo } from "./afficheNosLues.js";
 import { getIdDiscussionActive } from "./discussion.js";
 import { getIdDiscussionActiveG } from "./afficheGroupe.js";
+import { initAudioRecording } from "./messageVocal.js"; // Importer les fonctionnalités audio
 
 export async function envoyerMessage() {
   const input = document.getElementById('messageInput');
@@ -117,66 +118,7 @@ document.getElementById('messageInput').addEventListener('input', () => {
   sauvegarderBrouillon();
 });
 
-
-
-const recordButton = document.getElementById('recordButton');
-const sendAudioButton = document.getElementById('sendAudioButton');
-const recordingIndicator = document.getElementById('recordingIndicator');
-
-let mediaRecorder;
-let audioChunks = [];
-
-// Fonction pour démarrer l'enregistrement
-recordButton.addEventListener('click', async () => {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    mediaRecorder = new MediaRecorder(stream);
-
-    mediaRecorder.start();
-    recordingIndicator.classList.remove('hidden');
-    recordButton.disabled = true;
-    sendAudioButton.classList.remove('hidden');
-
-    mediaRecorder.ondataavailable = (event) => {
-      audioChunks.push(event.data);
-    };
-
-    mediaRecorder.onstop = () => {
-      recordingIndicator.classList.add('hidden');
-      recordButton.disabled = false;
-    };
-  } catch (error) {
-    console.error("Erreur lors de l'accès au microphone :", error);
-    alert("Impossible d'accéder au microphone.");
-  }
-});
-
-sendAudioButton.addEventListener('click', async () => {
-  if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-    mediaRecorder.stop();
-  }
-
-  const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-  const formData = new FormData();
-  formData.append('audio', audioBlob);
-
-  try {
-    const response = await fetch(`${urldiscussion}/sendAudio`, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (response.ok) {
-      alert("Message vocal envoyé avec succès !");
-    } else {
-      console.error("Erreur lors de l'envoi du message vocal :", response.statusText);
-      alert("Erreur lors de l'envoi du message vocal.");
-    }
-  } catch (error) {
-    console.error("Erreur lors de l'envoi du message vocal :", error);
-    alert("Erreur lors de l'envoi du message vocal.");
-  } finally {
-    audioChunks = []; // Réinitialiser les données audio
-    sendAudioButton.classList.add('hidden');
-  }
+// Initialiser l'enregistrement audio lors du chargement de la page
+document.addEventListener('DOMContentLoaded', () => {
+  initAudioRecording();
 });

@@ -1,4 +1,4 @@
-import { data, chargerDonnees, urldiscussion } from "../url_api/environement.js";
+import { data, chargerDonnees, urldiscussion, datag } from "../url_api/environement.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
 import { utilisateurSauvegarde } from "./discussion.js";
 import { listeNo } from "./afficheNosLues.js";
@@ -24,6 +24,7 @@ export async function afficheMessages(identifiant) {
       (msg.auteur === utilisateurSauvegarde && msg.destinataire === contact.id) ||
       (msg.auteur === contact.id && msg.destinataire === utilisateurSauvegarde)
     );
+    
     messages.forEach(msg => {
       const align = msg.auteur === utilisateurSauvegarde ? "justify-end" : "justify-start";
       const bgColor = msg.auteur === utilisateurSauvegarde ? "bg-wa-green text-white" : "bg-white text-color-text";
@@ -35,10 +36,29 @@ export async function afficheMessages(identifiant) {
           ? `<span class="text-color-noir ml-2">&#10003;&#10003;</span>`
           : `<span class="text-color-noir ml-2">&#10003;</span>`;
       }
+      
+      // Déterminer le contenu du message en fonction de son type
+      let messageContent = '';
+      if (msg.type === 'audio') {
+        // Contenu pour un message audio
+        messageContent = `
+          <div class="flex items-center">
+            <audio controls class="w-full max-w-[150px]">
+              <source src="${msg.url}" type="audio/webm">
+              Votre navigateur ne supporte pas la lecture audio.
+            </audio>
+            <i class="fas fa-headphones ml-2 text-xs"></i>
+          </div>
+        `;
+      } else {
+        // Contenu pour un message texte standard
+        messageContent = `<div class="text-sm">${msg.texte}</div>`;
+      }
+      
       messagesContainer.innerHTML += `
         <div class="flex ${align} mb-2">
           <div class="${bgColor} max-w-xs px-3 py-2 ${radius}">
-            <div class="text-sm">${msg.texte}</div>
+            ${messageContent}
             <div class="text-xs opacity-70 mt-1 text-right">
               ${msg.heure} ${check}
             </div>
@@ -46,6 +66,11 @@ export async function afficheMessages(identifiant) {
         </div>
       `;
     });
+
+    // Faire défiler automatiquement vers le dernier message
+    if (messagesContainer.lastElementChild) {
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
 
     const input = document.getElementById('messageInput');
     input.value = contact.brouillon || "";
@@ -69,80 +94,120 @@ export async function afficheMessages(identifiant) {
 }
 
 
-export async function  afficheAchive() {
+export async function afficheAchive() {
   const listeArchive = document.getElementById('ListeArchive');
   listeArchive.innerHTML = '';
-    await chargerDonnees();
+  await chargerDonnees();
   const discussions = data.filter(c => c.id !== utilisateurSauvegarde);
-  const groupes = data.filter(g => g.type === 'groupe');
+  const groupes = datag.filter(g => g.type === 'groupe');
+  
   discussions
     .filter(e => e.etat === false)
     .forEach((e) => {
       listeArchive.innerHTML += `
-        <div class="">
-          <div class="m-3 my-5 w-[95%] h-[10vh] bg-color-gris-clair rounded-lg flex items-center justify-between px-4">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-color-gris flex justify-center items-center text-white text-xl"> ${e.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}  </div>
-              <div class="flex flex-col">
-                <h2 class="mx-4 my-1">${e.nom}</h2>
-                 <p class="opacity-40 mx-3"> (${e.telephone})</p>
-
-              <p class="opacity-40 mx-3">Actus : ${e.actus}</p>
-              </div>
-            </div>
-            <i class="fas fa-undo text-blue-500 cursor-pointer desarchive-contact" data-id="${e.identifiant}"></i>
+        <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors">
+          <div class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
+            ${e.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+            <div class="absolute bottom-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-wa-sidebar"></div>
           </div>
-          <div class="w-full h-px bg-white"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="text-wa-text-primary font-medium truncate">${e.nom}</h3>
+              <span class="text-wa-text-secondary text-xs">${e.heure}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="text-wa-text-secondary text-sm truncate">(${e.telephone})</p>
+              <span class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-2">Archivé</span>
+            </div>
+            <p class="text-wa-text-secondary text-xs truncate mt-1">Actus : ${e.actus}</p>
+          </div>
+          <i class="fas fa-undo text-blue-500 cursor-pointer desarchive-contact ml-3" data-id="${e.id}"></i>
         </div>
       `;
     });
-
-
 
   groupes
     .filter(g => g.etat === false)
     .forEach((g) => {
       listeArchive.innerHTML += `
-        <div class="cursor-pointer">
-          <div class="m-3 my-5 w-[95%] h-auto bg-color-gris-clair rounded-lg flex items-center justify-between px-4 py-2">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-color-gris flex justify-center items-center text-white text-xl"> ${g.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}  </div>
-              <div class="flex flex-col">
-                <h2 class="mx-4 my-1">${g.nom}</h2>
-                <p class="opacity-40 mx-3 text-sm italic">${g.description}</p>
-              </div>
-            </div>
-            <i class="fas fa-undo text-green-500 cursor-pointer desarchive-groupe" data-id="${g.id}"></i>
+        <div class="flex items-center p-3 hover:bg-wa-panel cursor-pointer transition-colors">
+          <div class="w-12 h-12 rounded-full bg-wa-green flex items-center justify-center text-white font-medium mr-3 relative">
+            ${g.nom.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
+            <div class="absolute bottom-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-wa-sidebar"></div>
           </div>
-          <div class="w-full h-px bg-white"></div>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-1">
+              <h3 class="text-wa-text-primary font-medium truncate">${g.nom}</h3>
+              <span class="text-wa-text-secondary text-xs">${g.date || 'N/A'}</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <p class="text-wa-text-secondary text-sm truncate italic">${g.description}</p>
+              <span class="bg-red-500 text-white text-xs rounded-full px-2 py-1 ml-2">Groupe</span>
+            </div>
+          </div>
+          <i class="fas fa-undo text-green-500 cursor-pointer desarchive-groupe ml-3" data-id="${g.id}"></i>
         </div>
-
-
-        
       `;
     });
 
   document.querySelectorAll('.desarchive-contact').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = parseInt(btn.dataset.id);
-      const contact = discussions.find(c => c.identifiant === id);
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      const contact = discussions.find(c => c.id === id);
       if (contact) {
         contact.etat = true;
-        afficheAchive();
-        affiche1();
+        
+        // Sauvegarder en base de données
+        try {
+          const response = await fetch(`${urldiscussion}/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(contact)
+          });
+
+          if (response.ok) {
+            afficheAchive();
+            affiche1();
+          } else {
+            throw new Error('Erreur lors du désarchivage');
+          }
+        } catch (error) {
+          console.error("Erreur lors du désarchivage :", error);
+          contact.etat = false;
+        }
       }
     });
   });
 
-
   document.querySelectorAll('.desarchive-groupe').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const id = parseInt(btn.dataset.id);
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
       const groupe = groupes.find(g => g.id === id);
       if (groupe) {
         groupe.etat = true;
-        afficheAchive();
-        afficheGroupe();
+        
+        // Sauvegarder en base de données
+        try {
+          const response = await fetch(`${urlgroupe}/${id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(groupe)
+          });
+
+          if (response.ok) {
+            afficheAchive();
+            afficheGroupe();
+          } else {
+            throw new Error('Erreur lors du désarchivage');
+          }
+        } catch (error) {
+          console.error("Erreur lors du désarchivage :", error);
+          groupe.etat = false;
+        }
       }
     });
   });

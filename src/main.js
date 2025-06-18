@@ -8,6 +8,7 @@ import './style.css';
 import { deconnexion } from "./Functions/auth.js";
 import { gererConnexion } from "./Functions/auth.js";
 import { afficheDiffusion} from "./Functions/afficheDiffusion.js";
+import { afficheAchive } from "./Functions/afficheMessageContact.js";
 
 let utilisateurConnecte = null;
 const btnNoLues = document.getElementById('btnNoLues');
@@ -40,7 +41,10 @@ btnGroupe.addEventListener('click', async () => {
   changerVue('formGroupe');
   await afficherCheckboxMembres();
 });
-btnArchive.addEventListener('click', () => changerVue('ListeArchive'));
+btnArchive.addEventListener('click', () => {
+  changerVue('ListeArchive');
+  afficheAchive();
+});
 btnAjouterContact.addEventListener('click', () => changerVue('form'));
 btnNoLues.addEventListener('click', () => changerVue('listeNonLues'));
 btnmessage.addEventListener('click', () => {
@@ -81,6 +85,7 @@ chargerDonnees().then(() => {
       afficheGroupe();
       listeNo();
       afficheDiffusion();
+      
     } else {
       console.error("Utilisateur introuvable pour l'ID :", utilisateurConnecte);
     }

@@ -31,7 +31,7 @@ export async function affiche1() {
     return;
   }
 
-  const visible = data.filter(r => u.contact.includes(r.id));
+  const visible = data.filter(r => u.contact.includes(r.id) &&  r.etat === true);
   listeToute.innerHTML = '';
   visible.forEach((d) => {
     const chatItem = document.createElement('div');
@@ -55,7 +55,6 @@ export async function affiche1() {
       <button class="delete-contact bg-red-500 text-white px-3 py-1 ml-3 mt-5 rounded text-xs" data-id="${d.id}">S</button>
     `;
 
-    // Ajouter un gestionnaire d'événement pour afficher les messages avec un indicateur de chargement
     chatItem.addEventListener('click', async () => {
       const loadingIndicator = document.createElement('div');
       loadingIndicator.id = 'loadingIndicator';
@@ -69,27 +68,27 @@ export async function affiche1() {
       document.body.appendChild(loadingIndicator);
 
       try {
-        await afficheMessages(d.id); // Appeler la fonction pour afficher les messages
+        await afficheMessages(d.id); 
       } catch (error) {
         console.error("Erreur lors de l'affichage des messages :", error);
         alert("Une erreur s'est produite lors de l'affichage des messages.");
       } finally {
-        loadingIndicator.remove(); // Supprimer l'indicateur de chargement
+        loadingIndicator.remove(); 
       }
     });
 
-    // Ajouter un gestionnaire d'événement pour supprimer un contact
     const deleteButton = chatItem.querySelector('.delete-contact');
     deleteButton.addEventListener('click', async (event) => {
-      event.stopPropagation(); // Empêcher le clic sur le bouton de déclencher l'affichage des messages
+      event.stopPropagation(); 
       const contactId = event.target.dataset.id;
       await supprimerContact(contactId);
-      chatItem.remove(); // Supprimer l'élément de l'interface utilisateur
+      chatItem.remove(); 
     });
 
     listeToute.appendChild(chatItem);
   });
 }
+
 
 window.afficheMessages = afficheMessages;
 

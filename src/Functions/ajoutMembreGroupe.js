@@ -2,6 +2,7 @@ import { data, datag, chargerDonnees, urlgroupe } from '../url_api/environement.
 import { afficheGroupe, messageGroupe } from './afficheGroupe.js';
 import { utilisateurSauvegarde } from './discussion.js';
 import { afficheMessages } from './afficheMessageContact.js';
+import { pourAfficherEntete } from "./afficheEntete.js";
 
 export async function afficherAjoutMembre(idGroupe) {
   // Ajouter l'indicateur de chargement
@@ -61,14 +62,37 @@ export async function afficherAjoutMembre(idGroupe) {
     document.body.appendChild(popup);
     loadingIndicator.remove(); // Supprimer l'indicateur de chargement une fois les membres affichés
 
-    // Gestion des boutons
     popup.querySelector('.cancel').addEventListener('click', () => popup.remove());
     popup.querySelector('.confirm').addEventListener('click', async () => {
       const selected = popup.querySelectorAll('input[type="checkbox"]:checked');
+      
+      if (selected.length === 0) {
+        alert("Veuillez sélectionner au moins un membre à ajouter.");
+        return;
+      }
+      
+      const updateIndicator = document.createElement('div');
+      updateIndicator.className = 'fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center z-50';
+      updateIndicator.innerHTML = `
+        <div class="flex items-center justify-center mt-4">
+          <div class="spinner border-4 border-t-transparent border-teal-500 rounded-full w-8 h-8 animate-spin"></div>
+          <span class="ml-2 text-teal-500">Mise à jour du groupe...</span>
+        </div>
+      `;
+      document.body.appendChild(updateIndicator);
+      
       selected.forEach(cb => {
         const id = cb.value;
         const contact = data.find(c => c.id === id);
-        if (contact) groupe.membres.push(contact);
+        if (contact) {
+          const nouveauMembre = {
+            id: contact.id,
+            nom: contact.nom,
+            telephone: contact.telephone,
+            role: 'membre'
+          };
+          groupe.membres.push(nouveauMembre);
+        }
       });
 
       try {
@@ -85,15 +109,25 @@ export async function afficherAjoutMembre(idGroupe) {
         }
 
         console.log("Groupe mis à jour avec succès !");
+        
+        await chargerDonnees();
+        
+        popup.remove();
+        updateIndicator.remove();
+        
+        afficheGroupe();
+        
+        pourAfficherEntete(idGroupe, datag);
+        
+        messageGroupe(idGroupe);
+        
+        alert(`${selected.length} membre(s) ajouté(s) avec succès !`);
+        
       } catch (error) {
         console.error("Erreur lors de la mise à jour du groupe :", error);
         alert("Une erreur s'est produite lors de la mise à jour du groupe.");
+        updateIndicator.remove();
       }
-
-      popup.remove();
-      afficheGroupe();
-      messageGroupe(idGroupe);
-      afficheMessages(idGroupe);
     });
   } catch (error) {
     console.error("Erreur lors du chargement des membres :", error);

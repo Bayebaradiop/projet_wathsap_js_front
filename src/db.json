@@ -4,8 +4,8 @@
       "id": "06a2",
       "nom": "Ma Mère Ma Vie❤️",
       "avatar": "M",
-      "dernierMessage": "eee",
-      "heure": "12:11",
+      "dernierMessage": "Message vocal",
+      "heure": "03:19",
       "nonLus": 0,
       "etat": true,
       "actus": "Mawahibou Nafih",
@@ -525,6 +525,48 @@
           "lu": false,
           "auteur": "28e2",
           "destinataire": "06a2"
+        },
+        {
+          "texte": "teste increment",
+          "heure": "23:51",
+          "envoye": true,
+          "lu": true,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "cv",
+          "heure": "23:52",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "ffd",
+          "heure": "23:52",
+          "envoye": true,
+          "lu": false,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "type": "audio",
+          "url": "blob:http://localhost:5174/860f816a-dc4d-4ca1-ab6b-c02bc74aa4bc",
+          "heure": "03:18",
+          "envoye": true,
+          "lu": false,
+          "auteur": "dfdd",
+          "destinataire": "06a2"
+        },
+        {
+          "type": "audio",
+          "url": "blob:http://localhost:5174/ebabdef4-4213-401d-aa73-c42d3954db7f",
+          "heure": "03:19",
+          "envoye": true,
+          "lu": false,
+          "auteur": "dfdd",
+          "destinataire": "06a2"
         }
       ]
     },
@@ -532,11 +574,11 @@
       "id": "28e2",
       "nom": "Ahmed ka",
       "avatar": "AE",
-      "dernierMessage": "teste increment",
-      "heure": "11:57",
+      "dernierMessage": "ffd",
+      "heure": "23:52",
       "nonLus": 0,
-      "etat": false,
-      "brouillon": "teste increment",
+      "etat": true,
+      "brouillon": "",
       "contact": [
         "06a2",
         "cdf7"
@@ -861,6 +903,30 @@
           "lu": false,
           "auteur": "06a2",
           "destinataire": "28e2"
+        },
+        {
+          "texte": "teste increment",
+          "heure": "23:51",
+          "envoye": true,
+          "lu": false,
+          "auteur": "06a2",
+          "destinataire": "28e2"
+        },
+        {
+          "texte": "cv",
+          "heure": "23:52",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
+        },
+        {
+          "texte": "ffd",
+          "heure": "23:52",
+          "envoye": true,
+          "lu": true,
+          "auteur": "28e2",
+          "destinataire": "06a2"
         }
       ]
     },
@@ -990,8 +1056,8 @@
       "id": "dfdd",
       "nom": "44",
       "avatar": "M",
-      "dernierMessage": "bger",
-      "heure": "11:54",
+      "dernierMessage": "Message vocal",
+      "heure": "03:19",
       "nonLu": 0,
       "etat": true,
       "actus": "Mawahibou Nafih",
@@ -1026,9 +1092,27 @@
           "lu": false,
           "auteur": "06a2",
           "destinataire": "dfdd"
+        },
+        {
+          "type": "audio",
+          "url": "blob:http://localhost:5174/860f816a-dc4d-4ca1-ab6b-c02bc74aa4bc",
+          "heure": "03:18",
+          "envoye": true,
+          "lu": true,
+          "auteur": "dfdd",
+          "destinataire": "06a2"
+        },
+        {
+          "type": "audio",
+          "url": "blob:http://localhost:5174/ebabdef4-4213-401d-aa73-c42d3954db7f",
+          "heure": "03:19",
+          "envoye": true,
+          "lu": true,
+          "auteur": "dfdd",
+          "destinataire": "06a2"
         }
       ],
-      "nonLus": 0
+      "nonLus": 2
     },
     {
       "id": "1749727470832",
@@ -1213,18 +1297,178 @@
       "avatar": "M",
       "etat": true,
       "admin": [
-        "06a2"
+        "06a2",
+        "dfdd"
       ],
-      "dernierMessage": "ww",
+      "dernierMessage": "cv",
       "contact": [],
       "membres": [
         {
-          "id": "28e2",
-          "nom": "Ahmed ka"
+          "id": "dfdd",
+          "nom": "44",
+          "avatar": "M",
+          "dernierMessage": "bger",
+          "heure": "11:54",
+          "nonLu": 0,
+          "etat": true,
+          "actus": "Mawahibou Nafih",
+          "telephone": "44",
+          "brouillon": "",
+          "contact": [
+            "06a2",
+            "b14d"
+          ],
+          "noteVocale": false,
+          "messages": [
+            {
+              "texte": "f",
+              "heure": "11:30",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "dfdd"
+            },
+            {
+              "texte": "c",
+              "heure": "13:15",
+              "envoye": true,
+              "lu": true,
+              "auteur": "dfdd",
+              "destinataire": "06a2"
+            },
+            {
+              "texte": "bger",
+              "heure": "11:54",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "dfdd"
+            }
+          ],
+          "nonLus": 0,
+          "role": "admin"
         },
         {
-          "id": 3,
-          "nom": "Test T"
+          "id": "a195",
+          "nom": "Test T",
+          "avatar": "T",
+          "dernierMessage": "bger",
+          "heure": "11:54",
+          "nonLus": 0,
+          "etat": true,
+          "actus": "Occuper",
+          "telephone": "757777777",
+          "contact": [
+            "06a2",
+            "28e2"
+          ],
+          "brouillon": "",
+          "messages": [
+            {
+              "texte": "cvbbbbbb",
+              "heure": "12:16",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "12:17",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "12:25",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "fffffffffff",
+              "heure": "12:25",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "haaaaaaaaaaaaaa",
+              "heure": "12:56",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "waw wawwww",
+              "heure": "12:57",
+              "envoye": true,
+              "lu": true,
+              "auteur": "a195",
+              "destinataire": "06a2"
+            },
+            {
+              "texte": "yyyy",
+              "heure": "11:41",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "dd",
+              "heure": "19:35",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cc",
+              "heure": "19:35",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "19:58",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "ccc",
+              "heure": "19:59",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "ff",
+              "heure": "02:52",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "bger",
+              "heure": "11:54",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            }
+          ]
         }
       ],
       "message": [
@@ -1355,9 +1599,17 @@
           "envoye": true,
           "lu": false,
           "auteur": "06a2"
+        },
+        {
+          "texte": "cv",
+          "heure": "03:14",
+          "nom": "44",
+          "envoye": true,
+          "lu": false,
+          "auteur": "dfdd"
         }
       ],
-      "date": "02:53",
+      "date": "03:14",
       "brouillon": ""
     },
     {
@@ -1498,7 +1750,174 @@
       "description": "sss",
       "dernierMessage": "cc",
       "date": "01:43",
-      "membres": [],
+      "membres": [
+        {
+          "id": "a195",
+          "nom": "Test T",
+          "avatar": "T",
+          "dernierMessage": "bger",
+          "heure": "11:54",
+          "nonLus": 0,
+          "etat": true,
+          "actus": "Occuper",
+          "telephone": "757777777",
+          "contact": [
+            "06a2",
+            "28e2"
+          ],
+          "brouillon": "",
+          "messages": [
+            {
+              "texte": "cvbbbbbb",
+              "heure": "12:16",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "12:17",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "12:25",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "fffffffffff",
+              "heure": "12:25",
+              "envoye": true,
+              "lu": false,
+              "auteur": null,
+              "destinataire": "a195"
+            },
+            {
+              "texte": "haaaaaaaaaaaaaa",
+              "heure": "12:56",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "waw wawwww",
+              "heure": "12:57",
+              "envoye": true,
+              "lu": true,
+              "auteur": "a195",
+              "destinataire": "06a2"
+            },
+            {
+              "texte": "yyyy",
+              "heure": "11:41",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "dd",
+              "heure": "19:35",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cc",
+              "heure": "19:35",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "cv",
+              "heure": "19:58",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "ccc",
+              "heure": "19:59",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "ff",
+              "heure": "02:52",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            },
+            {
+              "texte": "bger",
+              "heure": "11:54",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "a195"
+            }
+          ]
+        },
+        {
+          "id": "dfdd",
+          "nom": "44",
+          "avatar": "M",
+          "dernierMessage": "bger",
+          "heure": "11:54",
+          "nonLu": 0,
+          "etat": true,
+          "actus": "Mawahibou Nafih",
+          "telephone": "44",
+          "brouillon": "",
+          "contact": [
+            "06a2",
+            "b14d"
+          ],
+          "noteVocale": false,
+          "messages": [
+            {
+              "texte": "f",
+              "heure": "11:30",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "dfdd"
+            },
+            {
+              "texte": "c",
+              "heure": "13:15",
+              "envoye": true,
+              "lu": true,
+              "auteur": "dfdd",
+              "destinataire": "06a2"
+            },
+            {
+              "texte": "bger",
+              "heure": "11:54",
+              "envoye": true,
+              "lu": false,
+              "auteur": "06a2",
+              "destinataire": "dfdd"
+            }
+          ],
+          "nonLus": 0
+        }
+      ],
       "message": [
         {
           "texte": "cc",
@@ -1509,7 +1928,7 @@
           "auteur": "06a2"
         }
       ],
-      "etat": true,
+      "etat": false,
       "admin": [
         "06a2"
       ],
@@ -1612,7 +2031,8 @@
       "membres": [
         {
           "id": "1749727470832",
-          "nom": "3"
+          "nom": "3",
+          "role": "membre"
         },
         {
           "id": "73dc",
@@ -1677,7 +2097,7 @@
         }
       ],
       "message": [],
-      "etat": true,
+      "etat": false,
       "admin": [
         "06a2"
       ]
