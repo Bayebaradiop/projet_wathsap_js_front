@@ -1,20 +1,18 @@
 import { data, datag, urldiscussion, urlgroupe } from "../url_api/environement.js";
 import { affiche1 } from "./discussion.js";
 import { afficheGroupe, messageGroupe } from "./afficheGroupe.js";
-import { afficheMessages } from './afficheMessageContact.js';
+import { afficheMessages, fixAudioPlayback } from './afficheMessageContact.js';
 import { utilisateurSauvegarde } from "./discussion.js";
 import { listeNo } from "./afficheNosLues.js";
 import { getIdDiscussionActive } from "./discussion.js";
 import { getIdDiscussionActiveG } from "./afficheGroupe.js";
 import { pourAfficherEntete } from "./afficheEntete.js";
 
-// Variables pour l'enregistrement audio
 let mediaRecorder;
 let audioChunks = [];
 let audioStream;
 let recordingTimer;
 
-// Initialiser les éléments DOM et les gestionnaires d'événements
 export function initAudioRecording() {
   const recordButton = document.getElementById('recordButton');
   const sendAudioButton = document.getElementById('sendAudioButton');
@@ -246,6 +244,9 @@ async function envoyerMessageVocalGroupe(audioUrl, audioBlob, heure) {
     if (!response.ok) {
       throw new Error("Erreur lors de la mise à jour du groupe");
     }
+    
+    // Ajouter cette ligne pour corriger la lecture audio
+    fixAudioPlayback();
   } catch (error) {
     console.error("Erreur lors de l'envoi du message vocal :", error);
     alert("Erreur lors de l'envoi du message vocal.");
@@ -330,6 +331,9 @@ async function envoyerMessageVocalIndividuel(audioUrl, audioBlob, heure) {
     if (!response1.ok || !response2.ok) {
       throw new Error("Erreur lors de la mise à jour des contacts");
     }
+    
+    // Ajouter cette ligne pour corriger la lecture audio
+    fixAudioPlayback();
   } catch (error) {
     console.error("Erreur lors de l'envoi du message vocal :", error);
     alert("Erreur lors de l'envoi du message vocal.");
