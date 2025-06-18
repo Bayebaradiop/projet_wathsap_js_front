@@ -1124,7 +1124,7 @@
       "actus": "J'utilise WhatsApp",
       "telephone": "3",
       "noteVocale": false,
-      "etat": true,
+      "etat": false,
       "messages": [
         {
           "texte": "3",
@@ -1264,7 +1264,7 @@
       "actus": "J'utilise WhatsApp",
       "telephone": "2222",
       "noteVocale": false,
-      "etat": true,
+      "etat": false,
       "messages": [
         {
           "texte": "gayii",

@@ -40,7 +40,6 @@ export async function afficheMessages(identifiant) {
       
       let messageContent = '';
       if (msg.type === 'audio') {
-        // Design amélioré pour ressembler à WhatsApp
         const audioId = `audio-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
         messageContent = `
           <div class="flex items-center">
@@ -95,7 +94,6 @@ export async function afficheMessages(identifiant) {
       `;
     });
 
-    // Ajouter le script pour gérer la lecture audio
     if (!window.toggleAudio) {
       window.toggleAudio = function(audioId) {
         const audio = document.getElementById(audioId);

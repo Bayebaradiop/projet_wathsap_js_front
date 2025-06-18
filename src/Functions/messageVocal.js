@@ -24,10 +24,8 @@ export function initAudioRecording() {
     return;
   }
 
-  // Gestionnaire d'événement pour démarrer l'enregistrement
   recordButton.addEventListener('click', startRecording);
 
-  // Gestionnaire d'événement pour annuler l'enregistrement
   if (cancelRecordingButton) {
     cancelRecordingButton.addEventListener('click', cancelRecording);
   }

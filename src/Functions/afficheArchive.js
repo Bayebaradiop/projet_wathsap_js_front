@@ -123,4 +123,3 @@ export async function afficheAchive() {
   });
 }
 
-// Appel automatique
