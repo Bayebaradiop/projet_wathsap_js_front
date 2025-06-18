@@ -7,7 +7,7 @@ import { sauvegarderBrouillon } from "./messageBrouillon.js";
 import { listeNo } from "./afficheNosLues.js";
 import { getIdDiscussionActive } from "./discussion.js";
 import { getIdDiscussionActiveG } from "./afficheGroupe.js";
-import { initAudioRecording } from "./messageVocal.js"; // Importer les fonctionnalités audio
+import { initAudioRecording } from "./messageVocal.js"; 
 
 export async function envoyerMessage() {
   const input = document.getElementById('messageInput');

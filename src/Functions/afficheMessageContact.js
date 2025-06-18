@@ -37,10 +37,8 @@ export async function afficheMessages(identifiant) {
           : `<span class="text-color-noir ml-2">&#10003;</span>`;
       }
       
-      // Déterminer le contenu du message en fonction de son type
       let messageContent = '';
       if (msg.type === 'audio') {
-        // Contenu pour un message audio
         messageContent = `
           <div class="flex items-center">
             <audio controls class="w-full max-w-[150px]">
@@ -51,7 +49,6 @@ export async function afficheMessages(identifiant) {
           </div>
         `;
       } else {
-        // Contenu pour un message texte standard
         messageContent = `<div class="text-sm">${msg.texte}</div>`;
       }
       
